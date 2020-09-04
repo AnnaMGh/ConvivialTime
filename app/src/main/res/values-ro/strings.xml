@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ActivityTime</string>
+    <string name="correct">Corect</string>
+    <string name="next">Următorul</string>
+    <string name="start">Start</string>
+    <string name="team">Echipa</string>
+    <string name="team_name_short">Numele trebuie să conțină cel putin 3 litere</string>
+    <string name="activity_talk">Activitate de vorbit</string>
+    <string name="activity_draw">Activitate de desenat</string>
+    <string name="activity_mime">Activitate de mimat</string>
+    <string name="word">"Cuvânt: "</string>
+    <string name="add_team_name">Numele echipei</string>
+    <string name="teams">Echipe:</string>
+    <string name="number_of_teams">Numărul de echipe:</string>
+    <string name="yes">Da</string>
+    <string name="time_limit">Timpul limită:</string>
+    <string name="t_press_back">Apasă de 2 ori pentru a ieși din aplicație</string>
+    <string name="seriesPoints">Puncte</string>
+    <string name="no">Nu</string>
+    <string name="do_you_want_to_cancel_the_game">Vrei să anulezi jocul?</string>
+    <string name="round">Runda</string>
+    <string name="team_name_different">Numele echipelor trebuie să fie diferite</string>
+    <string name="team_color_different">Culorile echipelor trebuie să fie diferite</string>
+    <string name="game_ranking">Clasamentul jocului xNumberx</string>
+    <string name="ranking">Clasamentul</string>
+    <string name="play_again">Joacă din nou</string>
+    <string name="change_pawn">*Apasă pe pion pentru a schimba culoarea echipei</string>
+    <string name="steps">Pași înainte</string>
+    <string name="turn_of_the_team">Rândul echipei</string>
+    <string name="tcontinue">Continuă</string>
+    <string name="round_for_all_the_teams">*Rundă pentru toate echipele. Echipa care ghicește cuvântul primește punctul.</string>
+    <string name="team_optains_points"><![CDATA[Echipa <b><font color=\"xColorx\">xTeamx</font></b> a obținut <b><font color=\"xColorx\">xPointsx</font></b> xPointsNamex]]></string>
+    <string name="point">Punct</string>
+    <string name="best_of_iii">Cel mai bun \ndin III</string>
+    <string name="best_of_v">Cel mai bun \ndin V</string>
+    <string name="best_of_vii">Cel mai bun \ndin VII</string>
+    <string name="mode">Modul:</string>
+    <string name="game_winner"><![CDATA[Câștigătorul jocului xNumberx este<br><font color=\"xColorx\">xTeamx</font>]]></string>
+    <string name="final_ranking">Arată clasamentul final</string>
+    <string name="select_team_correct">Selectați echipa care a răspuns corect</string>
+    <string name="sure_change_language">Sunteti siguri ca doriti sa schimbati limba? In timpul schimbarii aplicatia va reporni.</string>
+
+</resources>

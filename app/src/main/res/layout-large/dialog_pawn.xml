@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/txt"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/round_top_half_corners_blue_unsaturated"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingTop="35dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="35dp"
+        android:text="@string/select_team_correct"
+        android:textColor="@color/colorGrayPawn"
+        android:textSize="27sp"
+        tools:ignore="MissingPrefix" />
+
+    <View
+        android:layout_width="400dp"
+        android:layout_height="1dp"
+        android:background="@color/colorGrayPawn" />
+
+    <RelativeLayout
+        android:id="@+id/rl_parent_pawn"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/round_bottom_half_corners_blue_unsaturated"
+        android:padding="60dp">
+
+        <ImageView
+            android:id="@+id/img_gray"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/pawn_gray" />
+
+        <ImageView
+            android:id="@+id/img_red"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toRightOf="@id/img_gray"
+            android:src="@drawable/pawn_red" />
+
+        <ImageView
+            android:id="@+id/img_orange"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/img_gray"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/pawn_orange" />
+
+        <ImageView
+            android:id="@+id/img_green"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/img_red"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toRightOf="@id/img_orange"
+            android:src="@drawable/pawn_green" />
+
+        <ImageView
+            android:id="@+id/img_blue"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/img_orange"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:src="@drawable/pawn_blue" />
+
+        <ImageView
+            android:id="@+id/img_purple"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_below="@id/img_green"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_toRightOf="@id/img_blue"
+            android:src="@drawable/pawn_purple" />
+    </RelativeLayout>
+</LinearLayout>

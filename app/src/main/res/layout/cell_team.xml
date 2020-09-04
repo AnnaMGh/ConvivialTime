@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:src="@drawable/pawn_gray"
+        android:text="@string/team"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txt_team_name"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/img"
+        android:gravity="center"
+        android:text="@string/team"
+        android:textColor="@color/colorGray"
+        android:textSize="18sp"
+        tools:ignore="MissingPrefix" />
+
+    <EditText
+        android:id="@+id/edt_team_name"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="match_parent"
+        android:textColorHint="@color/colorGray"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/txt_team_name"
+        android:background="@null"
+        android:maxLength="20"
+        android:hint="@string/add_team_name"
+        android:inputType="text"
+        android:lines="1"
+        android:textColor="@color/colorGrayPawn"
+        android:textSize="18sp"
+        android:visibility="visible"
+        tools:ignore="MissingPrefix" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txt_team_name"
+        android:alpha="0.2"
+        android:background="@color/colorBlack" />
+
+
+</RelativeLayout>

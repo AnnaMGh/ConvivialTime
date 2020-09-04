@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="false"
+        android:focusable="false">
+
+
+        <!--the height of this relative layout will be change in code-->
+        <RelativeLayout
+            android:id="@+id/rl_start"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_corners_red"
+            android:visibility="visible">
+
+            <!--time-->
+            <TextView
+                android:id="@+id/txt_time_lbl"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:gravity="center"
+                android:text="@string/time_limit"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <RelativeLayout
+                android:id="@+id/rl_parent_time"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_toEndOf="@id/txt_time_lbl"
+                android:layout_toRightOf="@id/txt_time_lbl">
+
+
+                <RelativeLayout
+                    android:id="@+id/rl_time_01"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:alpha="0.5">
+
+                    <TextView
+                        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="30"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"
+                        tools:ignore="MissingPrefix" />
+
+                    <ImageView
+                        android:id="@+id/img_time_01"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/circle_black" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_time_02"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:alpha="1">
+
+                    <TextView
+                        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="60"
+                        android:textColor="@color/colorBlue"
+                        android:textSize="16sp"
+                        tools:ignore="MissingPrefix" />
+
+                    <ImageView
+                        android:id="@+id/img_time_02"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/circle_blue" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_time_03"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:alpha="0.5">
+
+                    <TextView
+                        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                        android:layout_width="40dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        android:text="90"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="16sp"
+                        tools:ignore="MissingPrefix" />
+
+                    <ImageView
+                        android:id="@+id/img_time_03"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/circle_black" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <!--end time-->
+
+
+            <!--game type-->
+            <TextView
+                android:id="@+id/txt_type_lbl"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/txt_time_lbl"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:gravity="center"
+                android:text="@string/mode"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/txt_time_lbl"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toEndOf="@id/txt_time_lbl"
+                android:layout_toRightOf="@id/txt_time_lbl"
+                android:gravity="end">
+
+                <ImageView
+                    android:id="@+id/img_type_01"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:alpha="1"
+                    android:src="@drawable/single_en" />
+
+                <ImageView
+                    android:id="@+id/img_type_02"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:src="@drawable/series_en" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l_parent_multiple"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/txt_type_lbl"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/img_multiple_01"
+                    fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:alpha="1"
+                    android:background="@drawable/round_corners_primary"
+                    android:gravity="center"
+                    android:text="@string/best_of_iii"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    tools:ignore="MissingPrefix" />
+
+                <TextView
+                    android:id="@+id/img_multiple_02"
+                    fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    android:background="@drawable/round_corners_primary"
+                    android:gravity="center"
+                    android:text="@string/best_of_v"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    tools:ignore="MissingPrefix" />
+
+                <TextView
+                    android:id="@+id/img_multiple_03"
+                    fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    android:background="@drawable/round_corners_primary"
+                    android:gravity="center"
+                    android:text="@string/best_of_vii"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+            <!--end game type-->
+
+
+            <!--number of players-->
+
+            <TextView
+                android:id="@+id/txt_nr_players_lbl"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/l_parent_multiple"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/number_of_teams"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <ImageView
+                android:id="@+id/img_arrow_left"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/l_parent_multiple"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/txt_nr_players"
+                android:padding="10dp"
+                android:src="@drawable/minus" />
+
+            <TextView
+                android:id="@+id/txt_nr_players"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/l_parent_multiple"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/img_arrow_right"
+                android:gravity="center"
+                android:text="2"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <ImageView
+                android:id="@+id/img_arrow_right"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/l_parent_multiple"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:padding="10dp"
+                android:src="@drawable/plus" />
+
+            <TextView
+                android:id="@+id/txt_teams"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_nr_players_lbl"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/teams"
+                android:textSize="18sp"
+                tools:ignore="MissingPrefix" />
+
+            <TextView
+                android:id="@+id/txt_pawn_change"
+                fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_teams"
+                android:layout_marginLeft="20dp"
+                android:text="@string/change_pawn"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                tools:ignore="MissingPrefix" />
+
+            <LinearLayout
+                android:id="@+id/ll_parent_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_pawn_change"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
+
+            <!--end nr of players-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@id/ll_parent_team"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_start"
+                    fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_corners_gray"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/start"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16sp"
+                    tools:ignore="MissingPrefix" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

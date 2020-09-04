@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1098606129853",
+    "firebase_url": "https://activity-time---charades.firebaseio.com",
+    "project_id": "activity-time---charades",
+    "storage_bucket": "activity-time---charades.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098606129853:android:355b016abf549f716afdd4",
+        "android_client_info": {
+          "package_name": "com.anaghizdavat.activity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098606129853-2ks891nd5gei8ggpukf3b17h15lrpinv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anaghizdavat.activity",
+            "certificate_hash": "82fb29ec60fd063c108dda80b35636207e407d2c"
+          }
+        },
+        {
+          "client_id": "1098606129853-p2i1kfdf01uhj16rhgktvsj3oianfg7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK35zsVFzNJVWGY7zgAIfisupB2xj9NS8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098606129853-p2i1kfdf01uhj16rhgktvsj3oianfg7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">ActivityTime</string>
+    <string name="en" translatable="false">EN</string>
+    <string name="ro" translatable="false">RO</string>
+    <string name="start">Start</string>
+    <string name="team">Team</string>
+    <string name="team_name_short">Name must contains at least 3 letters</string>
+    <string name="next">Next</string>
+    <string name="correct">Correct</string>
+    <string name="activity_mime">Mime activity</string>
+    <string name="activity_draw">Draw activity</string>
+    <string name="activity_talk">Talk activity</string>
+    <string name="word">Word</string>
+    <string name="add_team_name">Team name</string>
+    <string name="teams">Teams:</string>
+    <string name="number_of_teams">Number of teams:</string>
+    <string name="seriesPoints">Points</string>
+    <string name="point">Point</string>
+    <string name="time_limit">Time limit:</string>
+    <string name="t_press_back">Press again to exit app</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="do_you_want_to_cancel_the_game">Do you want to cancel the game?</string>
+    <string name="round">Round</string>
+    <string name="game_ranking">Game xNumberx ranking</string>
+    <string name="ranking">Ranking</string>
+    <string name="play_again">Play again</string>
+    <string name="team_name_different">Teams name must be different from each other</string>
+    <string name="team_color_different">Teams color must be different from each other</string>
+    <string name="change_pawn">*Tap on the pawn to change the team color</string>
+    <string name="steps">Steps forward</string>
+    <string name="turn_of_the_team">Turn of the team</string>
+    <string name="tcontinue">Continue</string>
+    <string name="round_for_all_the_teams">*Round for all the teams. The team who guess the word gets the point.</string>
+    <string name="team_optains_points"><![CDATA[Team <b><font color=\"xColorx\">xTeamx</font></b> obtained <b><font color=\"xColorx\">xPointsx</font></b> xPointsNamex]]></string>
+    <string name="best_of_iii">Best of  \nIII</string>
+    <string name="best_of_v">Best of  \nV</string>
+    <string name="best_of_vii">Best of  \nVII</string>
+    <string name="mode">Mode:</string>
+    <string name="game_winner"><![CDATA[The Game xNumberx winner is<br><font color=\"xColorx\">xTeamx</font>]]></string>
+    <string name="rank_1" translatable="false">1</string>
+    <string name="rank_2" translatable="false">2</string>
+    <string name="rank_3" translatable="false">3</string>
+    <string name="final_ranking">Show final ranking</string>
+    <string name="select_team_correct">Select the team that answered correctly</string>
+    <string name="sure_change_language">Are you sure you want to change the language? During the change the application will restart.</string>
+    <string name="iii" translatable="false">III</string>
+    <string name="v" translatable="false">V</string>
+    <string name="vii" translatable="false">VII</string>
+    <string name="phone" translatable="false">phone</string>
+    <string name="tablet" translatable="false">Tablet</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#42AC9E</color>
+    <color name="colorPrimaryDark">#338E91</color>
+    <color name="colorAccent">#E6DCDC</color>
+
+    <color name="colorPink">#DFD4D4</color>
+    <color name="colorBlue">#83AAA5</color>
+    <color name="colorRed">#AF1010</color>
+    <color name="colorGolden">#FFC107</color>
+    <color name="colorBronze">#D15B35</color>
+
+    <color name="colorGoldenLight">#FFEB3B</color>
+    <color name="colorBronzeLight">#F3BA64</color>
+
+    <color name="colorGrayPawn">#504F4F</color>
+    <color name="colorRedPawn">#621b1b</color>
+    <color name="colorOrangePawn">#803709</color>
+    <color name="colorGreenPawn">#366a37</color>
+    <color name="colorBluePawn">#2d4b5a</color>
+    <color name="colorPurplePawn">#3f2949</color>
+
+    <color name="colorRedSaturated">#EC5757</color>
+    <color name="colorGreenSaturated">#55C4A0</color>
+
+    <color name="colorRedUnsaturated">#D6D1DB</color>
+    <color name="colorOrangeUnsaturated">#D1CFCA</color>
+    <color name="colorBlueUnsaturated">#C8CCCF</color>
+    <color name="colorGreenUnsaturated">#C8CEC6</color>
+
+    <color name="colorRedSaturatedDark">#886969</color>
+    <color name="colorRedUnsaturatedDark">#B8B4BB</color>
+    <color name="colorOrangeUnsaturatedDark">#B8B6B0</color>
+    <color name="colorBlueUnsaturatedDark">#B0B3B6</color>
+    <color name="colorGreenUnsaturatedDark">#ABAFA9</color>
+    <color name="colorGreenSaturatedDark">#697E77</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrayLight">#dadada</color>
+    <color name="colorGrayLightDark">#bbbbbb</color>
+    <color name="colorGray">#aaaaaa</color>
+    <color name="colorGrayDark">#000000</color>
+    <color name="colorGrayDarkTransparent">#22000000</color>
+    <color name="colorBlackTransparent">#bb000000</color>
+    <color name="colorBlack">#000000</color>
+</resources>

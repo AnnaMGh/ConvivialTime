@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp">
+
+    <View
+        android:id="@+id/v_bg"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:layout_marginBottom="5dp" />
+
+    <TextView
+        android:id="@+id/txt_place"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:gravity="center|start"
+        android:text="1."
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        tools:ignore="MissingPrefix" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@+id/txt_place"
+        android:layout_toRightOf="@+id/txt_place"
+        android:src="@drawable/pawn_gray" />
+
+    <TextView
+        android:id="@+id/txt"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_toStartOf="@id/txt_points"
+        android:layout_toLeftOf="@id/txt_points"
+        android:layout_toEndOf="@id/img"
+        android:layout_toRightOf="@id/img"
+        android:gravity="center|start"
+        android:text="@string/team"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        tools:ignore="MissingPrefix" />
+
+    <TextView
+        android:id="@+id/txt_points"
+        fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/round_corners_stroke_white"
+        android:gravity="center"
+        android:text="7p"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        tools:ignore="MissingPrefix" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txt"
+        android:alpha="0.2"
+        android:background="@color/colorBlack" />
+
+</RelativeLayout>
