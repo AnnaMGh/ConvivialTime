@@ -88,7 +88,7 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:background="@drawable/round_corners_red"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txt_team"

@@ -26,6 +26,10 @@ public class Constants {
     public static final String EVENT_LAUNCH = "GAME_LAUNCH";
     public static final String EVENT_START = "GAME_START";
     public static final String EVENT_PLAY_AGAIN = "GAME_PLAY_AGAIN";
+    public static final String EVENT_AD_OPENED = "GAME_AD_OPENED";
+    public static final String EVENT_AD_CLICKED = "GAME_AD_CLICKED";
+    public static final String EVENT_AD_CLOSED = "GAME_AD_CLOSED";
+    public static final String EVENT_AD_FAILED = "GAME_AD_FAILED";
     public static final String EVENT_PARAM_LANG = "GAME_LANG";
     public static final String EVENT_PARAM_TIME = "GAME_TIME";
     public static final String EVENT_PARAM_TYPE = "GAME_TYPE";

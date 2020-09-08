@@ -287,7 +287,7 @@ public class GameFragment extends BaseFragment {
 
     private void setListeners() {
         rootView.setOnClickListener(view -> {
-            //block previous fragment events
+            //block previous fragment listener
         });
 
         btnContinue.setOnClickListener(view -> {
@@ -787,7 +787,7 @@ public class GameFragment extends BaseFragment {
         isRoundForAll = (getRandomNumber(1, 100) < 10);
 
         //in test mode
-        isRoundForAll = true;
+//        isRoundForAll = true;
 
         if (isRoundForAll) {
             txtWord.setTextColor(getResources().getColor(R.color.colorRed));

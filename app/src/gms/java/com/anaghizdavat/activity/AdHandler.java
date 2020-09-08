@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.anaghizdavat.activity.model.ObjectListener;
+import com.anaghizdavat.activity.others.Constants;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
@@ -61,6 +62,13 @@ public class AdHandler {
             public void onAdFailedToLoad(LoadAdError adError) {
                 // Code to be executed when an ad request fails.
                 Log.d("adHandler", "addInterstitialAd - onAdFailedToLoad" + adError.toString());
+
+                //send event
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_FAILED, bundle);
+
+                //send data back
                 if (listener != null) {
                     listener.getObject("Failed");
                 }
@@ -70,12 +78,27 @@ public class AdHandler {
             public void onAdOpened() {
                 // Code to be executed when the ad is displayed.
                 Log.d("adHandler", "addInterstitialAd - onAdOpened");
+
+                //send event
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_OPENED, bundle);
             }
 
             @Override
             public void onAdClicked() {
                 // Code to be executed when the user clicks on an ad.
                 Log.d("adHandler", "addInterstitialAd - onAdClicked");
+
+                //send event
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLICKED, bundle);
+
+                //send data back
+                if (listener != null) {
+                    listener.getObject("Clicked");
+                }
             }
 
             @Override
@@ -88,6 +111,12 @@ public class AdHandler {
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed.
                 Log.d("adHandler", "addInterstitialAd - onAdClosed");
+
+                //send event
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
+
                 if (listener != null) {
                     listener.getObject("Closed");
                 }

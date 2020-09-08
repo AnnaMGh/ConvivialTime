@@ -264,7 +264,7 @@ public class GameSetupFragment extends BaseFragment {
 
     private void setListeners() {
         rootView.setOnClickListener(view -> {
-            //block previous fragment events
+            //block previous fragment listeners
         });
 
         rlTime01.setOnClickListener(view -> changeTime(0));
