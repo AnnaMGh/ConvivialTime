@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(MainActivity.this);
+        AnalyticsHandler.enableCrashlytics(MainActivity.this);
         AnalyticsHandler.registerAnalytics(MainActivity.this);
         GlobalSingleton.init(MainActivity.this);
 

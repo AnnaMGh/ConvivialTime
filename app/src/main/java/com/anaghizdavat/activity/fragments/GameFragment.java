@@ -359,10 +359,11 @@ public class GameFragment extends BaseFragment {
                             if (currentActivity != null) {
                                 //send event
                                 Bundle bundle = new Bundle();
+                                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
                                 bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
                                 bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
                                 bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                                AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_START, bundle);
+                                AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
                                 //back to game setup
                                 currentActivity.showAlert = false;
@@ -428,10 +429,11 @@ public class GameFragment extends BaseFragment {
                         if (currentActivity != null) {
                             //send event
                             Bundle bundle = new Bundle();
+                            bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
                             bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
                             bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
                             bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                            AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_START, bundle);
+                            AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
                             //back to game setup
                             currentActivity.showAlert = false;
@@ -766,8 +768,8 @@ public class GameFragment extends BaseFragment {
         //in test mode
 //        lastWord = "Test sentence that takes 2 rows, \ntablet also :D";
 //        lastWord = "Professional Footballer";
-        lastWord = "Professional Footballer pt2ra 1";
-        txtWord.setText(lastWord);
+//        lastWord = "Professional Footballer pt2ra 1";
+//        txtWord.setText(lastWord);
 
 
         toggleVisibility(true);

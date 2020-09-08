@@ -23,8 +23,10 @@ public class Constants {
     public static final String adInterstitialUnitId = "ca-app-pub-6252100624852887/9432367463";
 
     //Analytics
+    public static final String EVENT_LAUNCH = "GAME_LAUNCH";
     public static final String EVENT_START = "GAME_START";
     public static final String EVENT_PLAY_AGAIN = "GAME_PLAY_AGAIN";
+    public static final String EVENT_PARAM_LANG = "GAME_LANG";
     public static final String EVENT_PARAM_TIME = "GAME_TIME";
     public static final String EVENT_PARAM_TYPE = "GAME_TYPE";
     public static final String EVENT_PARAM_NR_PLAYERS = "GAME_NR_PLAYERS";

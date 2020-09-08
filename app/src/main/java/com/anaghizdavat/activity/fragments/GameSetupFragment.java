@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.activities.MainActivity;
+import com.anaghizdavat.activity.activities.SplashActivity;
 import com.anaghizdavat.activity.model.Pawn;
 import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
@@ -307,6 +308,7 @@ public class GameSetupFragment extends BaseFragment {
 
             //send event
             Bundle bundle = new Bundle();
+            bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
             bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
             bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType == 2 ? Constants.GAME_TYPE_MULTIPLE_3 : gameType);
             bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
@@ -326,9 +328,6 @@ public class GameSetupFragment extends BaseFragment {
             currentActivity.previousTime = timeCode;
             currentActivity.previousTeams = listTeams;
             addFragmentAsNew(R.id.container, "GameSetupFragment", fragment, "GameFragment");
-
-//            throw new RuntimeException("Test Crash"); // Force a crash
-
         });
     }
 

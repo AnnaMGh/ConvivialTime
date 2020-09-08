@@ -3,6 +3,7 @@ package com.anaghizdavat.activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.huawei.agconnect.crash.AGConnectCrash;
 import com.huawei.hms.analytics.HiAnalytics;
 import com.huawei.hms.analytics.HiAnalyticsInstance;
 import com.huawei.hms.analytics.HiAnalyticsTools;
@@ -10,6 +11,14 @@ import com.huawei.hms.analytics.HiAnalyticsTools;
 public class AnalyticsHandler {
 
     private static HiAnalyticsInstance analyticsInstance;
+
+    public static void enableCrashlytics(Context context){
+        AGConnectCrash.getInstance().enableCrashCollection(true);
+    }
+
+    public static void forceCrash(Context context){
+        AGConnectCrash.getInstance().testIt(context); // Force a crash Huawei Style
+    }
 
     public static void registerAnalytics(Context context) {
         HiAnalyticsTools.enableLog();
