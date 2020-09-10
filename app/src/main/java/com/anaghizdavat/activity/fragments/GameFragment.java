@@ -3,7 +3,6 @@ package com.anaghizdavat.activity.fragments;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -15,9 +14,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -31,7 +28,6 @@ import com.anaghizdavat.activity.AdHandler;
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.activities.MainActivity;
-import com.anaghizdavat.activity.model.ObjectListener;
 import com.anaghizdavat.activity.model.Round;
 import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
@@ -197,34 +193,38 @@ public class GameFragment extends BaseFragment {
     }
 
     private void initialize() {
-        int width = GlobalSingleton.getInstance().getScreenMetrics(getActivity()).widthPixels;
-        widthDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(width, getActivity());
-        requiredWidthDp = (GlobalSingleton.getInstance().isTablet(getActivity()) ? 510 : 400);
+        MainActivity currentActivity = ((MainActivity) getActivity());
+        if (currentActivity == null) {
+            return;
+        }
+        int width = GlobalSingleton.getInstance().getScreenMetrics(currentActivity).widthPixels;
+        widthDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(width, currentActivity);
+        requiredWidthDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 510 : 400);
 
-        int height = GlobalSingleton.getInstance().getScreenMetrics(getActivity()).heightPixels;
-        int heightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(height, getActivity());
-        int requiredHeightDp = (GlobalSingleton.getInstance().isTablet(getActivity()) ? 900 : 630);
+        int height = GlobalSingleton.getInstance().getScreenMetrics(currentActivity).heightPixels;
+        int heightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(height, currentActivity);
+        int requiredHeightDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 900 : 630);
 
-        normalTextSize = (GlobalSingleton.getInstance().isTablet(getActivity()) ? 32 : 25);
-        shrinkTextSize = (GlobalSingleton.getInstance().isTablet(getActivity()) ? 27 : 20);
+        normalTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 32 : 25);
+        shrinkTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 27 : 20);
 
         if (widthDp < requiredWidthDp) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnCorrect.getLayoutParams();
-            params.leftMargin = params.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, getActivity());
+            params.leftMargin = params.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             btnCorrect.setLayoutParams(params);
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) btnNextAc.getLayoutParams();
-            params2.leftMargin = params2.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, getActivity());
+            params2.leftMargin = params2.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             btnNextAc.setLayoutParams(params2);
             RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) imgToggleVisibility.getLayoutParams();
-            params3.leftMargin = params3.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, getActivity());
+            params3.leftMargin = params3.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             imgToggleVisibility.setLayoutParams(params3);
         }
         if (heightDp < requiredHeightDp) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imgActivity.getLayoutParams();
-            int imgHeightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(params.height, getActivity());
+            int imgHeightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(params.height, currentActivity);
             int newDimension = imgHeightDp - (requiredHeightDp - heightDp);
             if (newDimension > 0) {
-                params.height = params.width = (int) GlobalSingleton.getInstance().convertDpToPixel(newDimension, getActivity());
+                params.height = params.width = (int) GlobalSingleton.getInstance().convertDpToPixel(newDimension, currentActivity);
                 imgActivity.setLayoutParams(params);
             }
 
@@ -236,38 +236,37 @@ public class GameFragment extends BaseFragment {
 
             //shrink time image & text
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) imgTime.getLayoutParams();
-            params2.height = params2.width = (int) (params2.width - GlobalSingleton.getInstance().convertDpToPixel(5, getActivity()));
+            params2.height = params2.width = (int) (params2.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
             imgTime.setLayoutParams(params2);
             RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) txtTime.getLayoutParams();
-            params3.height = params3.width = (int) (params3.width - GlobalSingleton.getInstance().convertDpToPixel(5, getActivity()));
+            params3.height = params3.width = (int) (params3.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
             txtTime.setLayoutParams(params3);
 
             //shrink margin top
             RelativeLayout.LayoutParams params4 = (RelativeLayout.LayoutParams) txtTeam.getLayoutParams();
-            params4.topMargin = (int) (params4.topMargin - GlobalSingleton.getInstance().convertDpToPixel(25, getActivity()));
+            params4.topMargin = (int) (params4.topMargin - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
             txtTeam.setLayoutParams(params4);
 
             //shrink margin bottom
             RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) rlBottom.getLayoutParams();
-            params5.height = (int) (params5.height - GlobalSingleton.getInstance().convertDpToPixel(25, getActivity()));
+            params5.height = (int) (params5.height - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
             rlBottom.setLayoutParams(params5);
-            rlBottom.setPadding(0, 0, 0, rlBottom.getPaddingBottom() - (int) GlobalSingleton.getInstance().convertDpToPixel(25, getActivity()));
+            rlBottom.setPadding(0, 0, 0, rlBottom.getPaddingBottom() - (int) GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
         }
 
         //load ad
-        AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
+        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
 
 
         //get audio source
-        if (getActivity() != null) {
-            mpNext = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.fail_sound_ex);
-            mpCorrect = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.success_sound_ex);
-            mpMovement = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.movement);
-            mpCountDown = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.countdown_clock);
-            mpCountDownAlarm = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.countdown_alarm);
-            mpFinish = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.game_finish_shorten);
-            mpRoundForAll = MediaPlayer.create(getActivity().getApplicationContext(), R.raw.game_tension_ex);
-        }
+        mpNext = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.fail_sound_ex);
+        mpCorrect = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.success_sound_ex);
+        mpMovement = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.movement);
+        mpCountDown = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.countdown_clock);
+        mpCountDownAlarm = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.countdown_alarm);
+        mpFinish = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.game_finish_shorten);
+        mpRoundForAll = MediaPlayer.create(currentActivity.getApplicationContext(), R.raw.game_tension_ex);
+
 
         //set dialog
         setDialog();
@@ -279,8 +278,8 @@ public class GameFragment extends BaseFragment {
         next();
 
         //hide keyboard if showed
-        if (getActivity() != null && getActivity().getCurrentFocus() != null) {
-            KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
+        if (currentActivity.getCurrentFocus() != null) {
+            KeyboardUtils.hideKeyboard(currentActivity, currentActivity.getCurrentFocus());
         }
 
     }
@@ -333,12 +332,9 @@ public class GameFragment extends BaseFragment {
 
         btnNextAc.setOnClickListener(view -> {
             mpNext.start();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btnNext.setEnabled(true);
-                    onClickShowAction(currentTeam, 0);
-                }
+            new Handler().postDelayed(() -> {
+                btnNext.setEnabled(true);
+                onClickShowAction(currentTeam, 0);
             }, 1000);
         });
 
@@ -352,23 +348,20 @@ public class GameFragment extends BaseFragment {
                 if (getActivity() != null) {
                     //finish animation
                     btnPlayAgain.setEnabled(false);
-                    AdHandler.showInterstitialAd(getActivity(), new ObjectListener() {
-                        @Override
-                        public void getObject(Object obj) {
-                            MainActivity currentActivity = ((MainActivity) getActivity());
-                            if (currentActivity != null) {
-                                //send event
-                                Bundle bundle = new Bundle();
-                                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
-                                bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
-                                bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
-                                bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                                AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
+                    AdHandler.showInterstitialAd(getActivity(), obj -> {
+                        MainActivity currentActivity = ((MainActivity) getActivity());
+                        if (currentActivity != null) {
+                            //send event
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
+                            bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
+                            bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
+                            bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
+                            AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
-                                //back to game setup
-                                currentActivity.showAlert = false;
-                                currentActivity.onBackPressed();
-                            }
+                            //back to game setup
+                            currentActivity.showAlert = false;
+                            currentActivity.onBackPressed();
                         }
                     });
                 }
@@ -422,23 +415,20 @@ public class GameFragment extends BaseFragment {
             if (getActivity() != null) {
                 //finish animation
                 btnSeriesPlayAgain.setEnabled(false);
-                AdHandler.showInterstitialAd(getActivity(), new ObjectListener() {
-                    @Override
-                    public void getObject(Object obj) {
-                        MainActivity currentActivity = ((MainActivity) getActivity());
-                        if (currentActivity != null) {
-                            //send event
-                            Bundle bundle = new Bundle();
-                            bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
-                            bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
-                            bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
-                            bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                            AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
+                AdHandler.showInterstitialAd(getActivity(), obj -> {
+                    MainActivity currentActivity = ((MainActivity) getActivity());
+                    if (currentActivity != null) {
+                        //send event
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
+                        bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
+                        bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
+                        bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
+                        AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
-                            //back to game setup
-                            currentActivity.showAlert = false;
-                            currentActivity.onBackPressed();
-                        }
+                        //back to game setup
+                        currentActivity.showAlert = false;
+                        currentActivity.onBackPressed();
                     }
                 });
             }
@@ -450,45 +440,42 @@ public class GameFragment extends BaseFragment {
             mpCorrect.start();
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onClickShowAction(receivedTeam, receivedPoints);
+        new Handler().postDelayed(() -> {
+            onClickShowAction(receivedTeam, receivedPoints);
 
-                id = receivedTeam;
-                points = receivedPoints;
-                btnNext.setEnabled(false);
+            id = receivedTeam;
+            points = receivedPoints;
+            btnNext.setEnabled(false);
 
-                Timer moveTimer = new Timer();
-                moveTimer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        if (getActivity() != null) {
-                            getActivity().runOnUiThread(() ->
-                            {
-                                if (id == -1) {
-                                    if (scrollFinish.getVisibility() == View.GONE) {
-                                        btnNext.setEnabled(true);
-                                    }
-                                    try {
-                                        moveTimer.cancel();
-                                        moveTimer.purge();
-                                        if (getActivity() != null && getActivity().getCurrentFocus() != null) {
-                                            KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    id = checkPawnStepped(id, points);
-                                    points = -1;
-
+            Timer moveTimer = new Timer();
+            moveTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() ->
+                        {
+                            if (id == -1) {
+                                if (scrollFinish.getVisibility() == View.GONE) {
+                                    btnNext.setEnabled(true);
                                 }
-                            });
-                        }
+                                try {
+                                    moveTimer.cancel();
+                                    moveTimer.purge();
+                                    if (getActivity() != null && getActivity().getCurrentFocus() != null) {
+                                        KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                id = checkPawnStepped(id, points);
+                                points = -1;
+
+                            }
+                        });
                     }
-                }, 1000, 1000);
-            }
+                }
+            }, 1000, 1000);
         }, 1000);
 
 
@@ -868,10 +855,6 @@ public class GameFragment extends BaseFragment {
                             mpCountDown.seekTo(20);
                             mpCountDown.setVolume(0.9f - (timePast / 10000f), 0.9f - (timePast / 10000f));
                             mpCountDown.start();
-                        } else if (timePast < 7000) {
-//                            mpCountDown.setVolume(0f, 0f);
-//                            mpCountDown.seekTo(20);
-//                            mpCountDown.start();
                         }
                     });
                 }
@@ -1020,13 +1003,10 @@ public class GameFragment extends BaseFragment {
         }
 
         //on cancel
-        pawnDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                btnCorrect.setEnabled(true);
-                if (getActivity() != null && getActivity().getCurrentFocus() != null) {
-                    KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
-                }
+        pawnDialog.setOnCancelListener(dialogInterface -> {
+            btnCorrect.setEnabled(true);
+            if (getActivity() != null && getActivity().getCurrentFocus() != null) {
+                KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
             }
         });
 

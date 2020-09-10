@@ -2,6 +2,7 @@ package com.anaghizdavat.activity.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -13,11 +14,11 @@ import com.anaghizdavat.activity.BuildConfig;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.fragments.GameFragment;
 import com.anaghizdavat.activity.fragments.GameSetupFragment;
-import com.anaghizdavat.activity.model.ObjectListener;
 import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.anaghizdavat.activity.others.KeyboardUtils;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,10 @@ public class MainActivity extends BaseActivity {
     TextView txtEn;
     @BindView(R.id.txt_ro)
     TextView txtRo;
+    @BindView(R.id.ll_parent_ad)
+    LinearLayout llParentAd;
+    @BindView(R.id.ad_banner)
+    AdView adBanner;
 
     //set from other class
     public boolean showAlert = true;
@@ -113,7 +118,7 @@ public class MainActivity extends BaseActivity {
     private void initialize() {
         //ads on gms
         if (BuildConfig.FLAVOR.equals("gms")) {
-            AdHandler.initialize(this);
+            AdHandler.initialize(MainActivity.this, adBanner, llParentAd);
         }
 
         changeLanguageUI(GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, this));
@@ -126,24 +131,14 @@ public class MainActivity extends BaseActivity {
                 return;
             }
             KeyboardUtils.hideKeyboard(this, this.getCurrentFocus());
-            showAlert(getString(R.string.sure_change_language), new ObjectListener() {
-                @Override
-                public void getObject(Object obj) {
-                    changeDeviceLanguage("en");
-                }
-            }, null);
+            showAlert(getString(R.string.sure_change_language), obj -> changeDeviceLanguage("en"), null);
         });
         txtRo.setOnClickListener(view -> {
             if (GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, this).equals("ro")) {
                 return;
             }
             KeyboardUtils.hideKeyboard(this, this.getCurrentFocus());
-            showAlert(getString(R.string.sure_change_language), new ObjectListener() {
-                @Override
-                public void getObject(Object obj) {
-                    changeDeviceLanguage("ro");
-                }
-            }, null);
+            showAlert(getString(R.string.sure_change_language), obj -> changeDeviceLanguage("ro"), null);
         });
     }
 
