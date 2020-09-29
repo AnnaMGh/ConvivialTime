@@ -203,10 +203,10 @@ public class GameFragment extends BaseFragment {
 
         int height = GlobalSingleton.getInstance().getScreenMetrics(currentActivity).heightPixels;
         int heightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(height, currentActivity);
-        int requiredHeightDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 900 : 630);
+        int requiredHeightDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 900 : 690);
 
         normalTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 32 : 25);
-        shrinkTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 27 : 20);
+        shrinkTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 27 : 20) - (int) GlobalSingleton.getInstance().getCurrentDp(currentActivity);
 
         if (widthDp < requiredWidthDp) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnCorrect.getLayoutParams();
@@ -223,16 +223,18 @@ public class GameFragment extends BaseFragment {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imgActivity.getLayoutParams();
             int imgHeightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(params.height, currentActivity);
             int newDimension = imgHeightDp - (requiredHeightDp - heightDp);
-            if (newDimension > 0) {
-                params.height = params.width = (int) GlobalSingleton.getInstance().convertDpToPixel(newDimension, currentActivity);
-                imgActivity.setLayoutParams(params);
+            if (newDimension < 0.8 * imgHeightDp) {
+                newDimension = (int) (0.8 * imgHeightDp);
             }
+            params.height = params.width = (int) GlobalSingleton.getInstance().convertDpToPixel(newDimension, currentActivity);
+            imgActivity.setLayoutParams(params);
 
             //shrink text size
             normalTextSize = shrinkTextSize;
             txtTeam.setTextSize(TypedValue.COMPLEX_UNIT_SP, shrinkTextSize);
             txtWord.setTextSize(TypedValue.COMPLEX_UNIT_SP, shrinkTextSize);
             txtTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, shrinkTextSize - 4);
+            txtWordAll.setTextSize(TypedValue.COMPLEX_UNIT_SP, shrinkTextSize - 6);
 
             //shrink time image & text
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) imgTime.getLayoutParams();
@@ -255,7 +257,7 @@ public class GameFragment extends BaseFragment {
         }
 
         //load ad
-        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
+//        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
 
 
         //get audio source
@@ -348,22 +350,20 @@ public class GameFragment extends BaseFragment {
                 if (getActivity() != null) {
                     //finish animation
                     btnPlayAgain.setEnabled(false);
-                    AdHandler.showInterstitialAd(getActivity(), obj -> {
-                        MainActivity currentActivity = ((MainActivity) getActivity());
-                        if (currentActivity != null) {
-                            //send event
-                            Bundle bundle = new Bundle();
-                            bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
-                            bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
-                            bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
-                            bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                            AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
+                    MainActivity currentActivity = ((MainActivity) getActivity());
+                    if (currentActivity != null) {
+                        //send event
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
+                        bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
+                        bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
+                        bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
+                        AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
-                            //back to game setup
-                            currentActivity.showAlert = false;
-                            currentActivity.onBackPressed();
-                        }
-                    });
+                        //back to game setup
+                        currentActivity.showAlert = false;
+                        currentActivity.onBackPressed();
+                    }
                 }
             } else {
                 if (currentSeries > gameType) {
@@ -415,22 +415,20 @@ public class GameFragment extends BaseFragment {
             if (getActivity() != null) {
                 //finish animation
                 btnSeriesPlayAgain.setEnabled(false);
-                AdHandler.showInterstitialAd(getActivity(), obj -> {
-                    MainActivity currentActivity = ((MainActivity) getActivity());
-                    if (currentActivity != null) {
-                        //send event
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
-                        bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
-                        bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
-                        bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
-                        AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
+                MainActivity currentActivity = ((MainActivity) getActivity());
+                if (currentActivity != null) {
+                    //send event
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, currentActivity));
+                    bundle.putInt(Constants.EVENT_PARAM_TIME, timeLimit);
+                    bundle.putInt(Constants.EVENT_PARAM_TYPE, gameType);
+                    bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
+                    AnalyticsHandler.sendMessage(currentActivity, Constants.EVENT_PLAY_AGAIN, bundle);
 
-                        //back to game setup
-                        currentActivity.showAlert = false;
-                        currentActivity.onBackPressed();
-                    }
-                });
+                    //back to game setup
+                    currentActivity.showAlert = false;
+                    currentActivity.onBackPressed();
+                }
             }
         });
     }

@@ -125,6 +125,12 @@ public class GlobalSingleton {
         return dp;
     }
 
+    public float getCurrentDp(Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return (float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
+    }
+
     public float calculateStringWidth(TextView txt) {
         Rect bounds = new Rect();
         Paint textPaint = txt.getPaint();

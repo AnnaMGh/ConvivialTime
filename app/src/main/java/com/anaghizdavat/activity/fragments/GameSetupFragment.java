@@ -18,15 +18,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.anaghizdavat.activity.AdHandler;
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.activities.MainActivity;
-import com.anaghizdavat.activity.activities.SplashActivity;
 import com.anaghizdavat.activity.model.Pawn;
 import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
@@ -260,6 +259,9 @@ public class GameSetupFragment extends BaseFragment {
                 }
             }
         }, 5000, 5000);
+
+        //load ad
+        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
     }
 
     private void setListeners() {
@@ -314,20 +316,24 @@ public class GameSetupFragment extends BaseFragment {
             bundle.putInt(Constants.EVENT_PARAM_NR_PLAYERS, listTeams.size());
             AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_START, bundle);
 
-            //go to game fragment
-            GameFragment fragment = new GameFragment();
-            fragment.listTeams = GlobalSingleton.getInstance().copyArray(listTeams);
-            fragment.listTalk = listTalk;
-            fragment.listMime = listMime;
-            fragment.listDraw = listDraw;
-            fragment.timeLimit = timeLimit;
-            fragment.timeCode = timeCode;
-            fragment.gameType = (gameType == 2 ? Constants.GAME_TYPE_MULTIPLE_3 : gameType);
-            fragment.gameName = (gameType == 2 ? getActivity().getResources().getString(R.string.best_of_iii) : gameName);
-            currentActivity.previousMode = gameType;
-            currentActivity.previousTime = timeCode;
-            currentActivity.previousTeams = listTeams;
-            addFragmentAsNew(R.id.container, "GameSetupFragment", fragment, "GameFragment");
+
+            AdHandler.showInterstitialAd(getActivity(), obj -> {
+                //go to game fragment
+                GameFragment fragment = new GameFragment();
+                fragment.listTeams = GlobalSingleton.getInstance().copyArray(listTeams);
+                fragment.listTalk = listTalk;
+                fragment.listMime = listMime;
+                fragment.listDraw = listDraw;
+                fragment.timeLimit = timeLimit;
+                fragment.timeCode = timeCode;
+                fragment.gameType = (gameType == 2 ? Constants.GAME_TYPE_MULTIPLE_3 : gameType);
+                fragment.gameName = (gameType == 2 ? getActivity().getResources().getString(R.string.best_of_iii) : gameName);
+                currentActivity.previousMode = gameType;
+                currentActivity.previousTime = timeCode;
+                currentActivity.previousTeams = listTeams;
+                addFragmentAsNew(R.id.container, "GameSetupFragment", fragment, "GameFragment");
+            });
+
         });
     }
 

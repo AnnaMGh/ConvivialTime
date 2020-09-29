@@ -35,7 +35,10 @@ public class AdHandler {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
                 Log.d("adHandler", "initialize - onInitializationComplete");
-                addBannerAd(context, bannerAd, llBannerParent);
+
+                if (bannerAd != null && llBannerParent != null) {
+                    addBannerAd(context, bannerAd, llBannerParent);
+                }
             }
         });
     }

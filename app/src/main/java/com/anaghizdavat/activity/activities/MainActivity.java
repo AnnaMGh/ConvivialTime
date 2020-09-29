@@ -18,7 +18,7 @@ import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.anaghizdavat.activity.others.KeyboardUtils;
-import com.google.android.gms.ads.AdView;
+
 
 import java.util.ArrayList;
 
@@ -33,8 +33,8 @@ public class MainActivity extends BaseActivity {
     TextView txtRo;
     @BindView(R.id.ll_parent_ad)
     LinearLayout llParentAd;
-    @BindView(R.id.ad_banner)
-    AdView adBanner;
+//    @BindView(R.id.ad_banner)
+//    AdView adBanner;
 
     //set from other class
     public boolean showAlert = true;
@@ -118,7 +118,8 @@ public class MainActivity extends BaseActivity {
     private void initialize() {
         //ads on gms
         if (BuildConfig.FLAVOR.equals("gms")) {
-            AdHandler.initialize(MainActivity.this, adBanner, llParentAd);
+//            AdHandler.initialize(MainActivity.this, adBanner, llParentAd);
+            AdHandler.initialize(MainActivity.this, null, null);
         }
 
         changeLanguageUI(GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, this));

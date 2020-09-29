@@ -3,13 +3,14 @@ package com.anaghizdavat.activity;
 import com.anaghizdavat.activity.model.ObjectListener;
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 
 public class AdHandler {
     private static Context mContext;
     private static ObjectListener listener;
 
-    public static void initialize(Context context) {
+    public static void initialize(Context context, View adBanner, View llParent) {
         mContext = context;
         Log.d("adHandler", "initialize");
 
