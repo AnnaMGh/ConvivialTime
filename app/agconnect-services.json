@@ -18,6 +18,9 @@
 			"resource_id":"p1",
 			"channel_id":""
 		},
+		"search":{
+			"url":"https://search-dre.cloud.huawei.com"
+		},
 		"cloudstorage":{
 			"storage_url":"https://ops-dre.agcstorage.link"
 		},

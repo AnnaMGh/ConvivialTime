@@ -37,9 +37,13 @@ android {
     flavorDimensions "services"
     productFlavors {
         gms {
+            versionCode 7
+            versionName "1.0.3"
             dimension "services"
         }
         hms {
+            versionCode 8
+            versionName "1.0.4"
             dimension "services"
         }
     }
@@ -68,7 +72,11 @@ dependencies {
     //huawei
     hmsImplementation 'com.huawei.agconnect:agconnect-core:1.4.1.300'
     hmsImplementation 'com.huawei.hms:hianalytics:5.0.0.300'
+    hmsImplementation 'com.huawei.hms:dtm-api:4.0.0.300'
     hmsImplementation 'com.huawei.agconnect:agconnect-crash:1.4.1.300'
+
+    //appsflyer
+    implementation 'com.appsflyer:af-android-sdk:6.0.0'
 
     //calligraphy
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
