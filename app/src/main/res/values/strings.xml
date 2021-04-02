@@ -6,6 +6,7 @@
     <string name="team">Team</string>
     <string name="team_name_short">Name must contains at least 3 letters</string>
     <string name="next">Next</string>
+    <string name="done">Done</string>
     <string name="correct">Correct</string>
     <string name="activity_mime">Mime activity</string>
     <string name="activity_draw">Draw activity</string>
@@ -49,4 +50,12 @@
     <string name="vii" translatable="false">VII</string>
     <string name="phone" translatable="false">phone</string>
     <string name="tablet" translatable="false">Tablet</string>
+
+    <!--tutorials-->
+    <string name="tutorial_1">Current team name</string>
+    <string name="tutorial_2">Current round and points of the round</string>
+    <string name="tutorial_3">Activity type (talk/draw/mime)</string>
+    <string name="tutorial_4">Word to guess by your team mates</string>
+    <string name="tutorial_5">Time left to guess the word</string>
+
 </resources>

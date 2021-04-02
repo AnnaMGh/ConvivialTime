@@ -3,6 +3,7 @@ package com.anaghizdavat.activity.activities;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.rl_root_main)
+    RelativeLayout rlRootMain;
     @BindView(R.id.txt_en)
     TextView txtEn;
     @BindView(R.id.txt_ro)
@@ -151,5 +154,10 @@ public class MainActivity extends BaseActivity {
             txtEn.setTextColor(getResources().getColor(R.color.colorPrimary));
             txtRo.setTextColor(getResources().getColor(R.color.colorGray));
         }
+    }
+
+    public RelativeLayout getRootMainLayout()
+    {
+        return  rlRootMain;
     }
 }

@@ -1,6 +1,7 @@
 package com.anaghizdavat.activity.fragments;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +26,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.anaghizdavat.activity.AdHandler;
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.activities.MainActivity;
 import com.anaghizdavat.activity.model.Round;
 import com.anaghizdavat.activity.model.Team;
+import com.anaghizdavat.activity.model.TutorialTarget;
 import com.anaghizdavat.activity.others.Constants;
+import com.anaghizdavat.activity.others.FocusView;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.anaghizdavat.activity.others.KeyboardUtils;
+import com.anaghizdavat.activity.others.WizardUI;
 import com.anaghizdavat.activity.others.WordHelper;
 
 import java.util.ArrayList;
@@ -48,6 +52,9 @@ public class GameFragment extends BaseFragment {
     //views
 
     //next team
+    @BindView(R.id.test)
+    View test;
+
     @BindView(R.id.rl_next_team)
     RelativeLayout rlNextTeam;
     @BindView(R.id.txt_team_name)
@@ -70,6 +77,8 @@ public class GameFragment extends BaseFragment {
     ImageView imgToggleVisibility;
     @BindView(R.id.txt_team)
     TextView txtTeam;
+    @BindView(R.id.view_tutorial_points)
+    View viewTutorialPoints;
     @BindView(R.id.txt_points)
     TextView txtRoundPoints;
     @BindView(R.id.img_activity)
@@ -197,26 +206,28 @@ public class GameFragment extends BaseFragment {
         if (currentActivity == null) {
             return;
         }
-        int width = GlobalSingleton.getInstance().getScreenMetrics(currentActivity).widthPixels;
+        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+        boolean isTablet = GlobalSingleton.getInstance().isTablet(currentActivity);
+        int width = displayMetrics.widthPixels;
         widthDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(width, currentActivity);
-        requiredWidthDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 510 : 400);
+        requiredWidthDp = (isTablet ? 510 : 400);
 
-        int height = GlobalSingleton.getInstance().getScreenMetrics(currentActivity).heightPixels;
+        int height = displayMetrics.heightPixels;
         int heightDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(height, currentActivity);
-        int requiredHeightDp = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 900 : 690);
+        int requiredHeightDp = (isTablet ? 900 : 690);
 
-        normalTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 32 : 25);
-        shrinkTextSize = (GlobalSingleton.getInstance().isTablet(currentActivity) ? 27 : 20) - (int) GlobalSingleton.getInstance().getCurrentDp(currentActivity);
+        normalTextSize = (isTablet ? 32 : 25);
+        shrinkTextSize = (isTablet ? 27 : 20) - (int) GlobalSingleton.getInstance().getCurrentDp(currentActivity);
 
         if (widthDp < requiredWidthDp) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) btnCorrect.getLayoutParams();
-            params.leftMargin = params.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
+            params.leftMargin = params.rightMargin = GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             btnCorrect.setLayoutParams(params);
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) btnNextAc.getLayoutParams();
-            params2.leftMargin = params2.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
+            params2.leftMargin = params2.rightMargin = GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             btnNextAc.setLayoutParams(params2);
             RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) imgToggleVisibility.getLayoutParams();
-            params3.leftMargin = params3.rightMargin = (int) GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
+            params3.leftMargin = params3.rightMargin = GlobalSingleton.getInstance().convertDpToPixel(12, currentActivity);
             imgToggleVisibility.setLayoutParams(params3);
         }
         if (heightDp < requiredHeightDp) {
@@ -226,7 +237,7 @@ public class GameFragment extends BaseFragment {
             if (newDimension < 0.8 * imgHeightDp) {
                 newDimension = (int) (0.8 * imgHeightDp);
             }
-            params.height = params.width = (int) GlobalSingleton.getInstance().convertDpToPixel(newDimension, currentActivity);
+            params.height = params.width = GlobalSingleton.getInstance().convertDpToPixel(newDimension, currentActivity);
             imgActivity.setLayoutParams(params);
 
             //shrink text size
@@ -238,20 +249,20 @@ public class GameFragment extends BaseFragment {
 
             //shrink time image & text
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) imgTime.getLayoutParams();
-            params2.height = params2.width = (int) (params2.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
+            params2.height = params2.width = (params2.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
             imgTime.setLayoutParams(params2);
             RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) txtTime.getLayoutParams();
-            params3.height = params3.width = (int) (params3.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
+            params3.height = params3.width = (params3.width - GlobalSingleton.getInstance().convertDpToPixel(5, currentActivity));
             txtTime.setLayoutParams(params3);
 
             //shrink margin top
             RelativeLayout.LayoutParams params4 = (RelativeLayout.LayoutParams) txtTeam.getLayoutParams();
-            params4.topMargin = (int) (params4.topMargin - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
+            params4.topMargin = (params4.topMargin - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
             txtTeam.setLayoutParams(params4);
 
             //shrink margin bottom
             RelativeLayout.LayoutParams params5 = (RelativeLayout.LayoutParams) rlBottom.getLayoutParams();
-            params5.height = (int) (params5.height - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
+            params5.height = (params5.height - GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
             rlBottom.setLayoutParams(params5);
             rlBottom.setPadding(0, 0, 0, rlBottom.getPaddingBottom() - (int) GlobalSingleton.getInstance().convertDpToPixel(25, currentActivity));
         }
@@ -292,6 +303,8 @@ public class GameFragment extends BaseFragment {
         });
 
         btnContinue.setOnClickListener(view -> {
+            showTutorial();
+
             rlNextTeam.setVisibility(View.GONE);
             rlGame.setVisibility(View.VISIBLE);
 
@@ -431,6 +444,105 @@ public class GameFragment extends BaseFragment {
                 }
             }
         });
+    }
+
+    int currentStep = 0;
+
+    void showTutorial() {
+        Activity currentActivity = getActivity();
+        if (currentActivity == null) {
+            return;
+        }
+        currentStep = 0;
+
+        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+
+        //view targets
+        final TutorialTarget[] targets = new TutorialTarget[]{
+              //  new TutorialTarget(txtTeam, 0,
+                new TutorialTarget(getActivity().findViewById(R.id.test), 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_1",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle),
+                new TutorialTarget(getActivity().findViewById(R.id.txt_team), 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_1",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle),
+                new TutorialTarget(viewTutorialPoints, 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_2",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle),
+                new TutorialTarget(txtActivity, 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_3",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle),
+                new TutorialTarget(txtWord, 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_4",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle),
+                new TutorialTarget(txtTime, 0,
+                        getResources().getString(getResources().getIdentifier("tutorial_5",
+                                "string", currentActivity.getPackageName())),
+                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+                        FocusView.FocusShape.Rectangle) ,
+//                new TutorialTarget(txtTime, 50,
+//                        getResources().getString(getResources().getIdentifier("tutorial_5",
+//                                "string", currentActivity.getPackageName())),
+//                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
+//                        FocusView.FocusShape.Circle)
+        };
+
+
+        //root layout
+        //final RelativeLayout rootLayout = rlRoot;
+        final RelativeLayout rootLayout = ((MainActivity) currentActivity).getRootMainLayout();
+
+        //wizard1 layout
+        final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(getActivity());
+        rootLayout.addView(wizardLayout);
+
+        //add progress buttons
+        final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
+                GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
+                displayMetrics.heightPixels
+                        - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
+        WizardUI.addProgressButtons(rootLayout, imageViews);
+
+        //add next/done button
+        final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
+        int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
+        float btnX = displayMetrics.widthPixels - btnWidth;
+        float btnY =displayMetrics.heightPixels
+                - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
+
+        final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
+        btn.setText(R.string.next);
+
+        btn.setOnClickListener(view -> {
+            currentStep++;
+            if (currentStep + 1 <= targets.length) {
+                if (currentStep + 1 == targets.length) {
+                    btn.setText(R.string.done);
+                }
+                WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentStep]);
+                WizardUI.updateProgressButtons(imageViews, currentStep);
+            } else {
+                wizardLayout.removeAllViews();
+                rootLayout.removeView(btn);
+                updateStatusBarColor(R.color.colorRed);
+                WizardUI.removeProgressButtons(rootLayout, imageViews);
+                GlobalSingleton.getInstance().setBoolean(Constants.KEY_TUTORIAL, true, currentActivity);
+            }
+        });
+        rootLayout.addView(btn);
+
+        //setWizardScreen
+        WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
     }
 
     private void onClickCorrect(int receivedTeam, int receivedPoints) {

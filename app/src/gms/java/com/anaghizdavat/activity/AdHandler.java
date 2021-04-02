@@ -245,7 +245,7 @@ public class AdHandler {
         }
 
         Log.d("adHandler", "showInterstitalAd");
-        if (GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
+        if (mInterstitialAd!=null && GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
             Log.d("adHandler", "ad loaded and showed");
             mInterstitialAd.show();
         } else {

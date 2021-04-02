@@ -11,6 +11,7 @@ public class Constants {
 
     //Share preferences
     public final static String KEY_LOCALE = "key_locale";
+    public final static String KEY_TUTORIAL = "key_tutorial";
 
     public static final int GAME_TYPE_SIMPLE = 1;
     public static final int GAME_TYPE_MULTIPLE = 2;

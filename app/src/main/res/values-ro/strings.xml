@@ -40,5 +40,6 @@
     <string name="final_ranking">Arată clasamentul final</string>
     <string name="select_team_correct">Selectați echipa care a răspuns corect</string>
     <string name="sure_change_language">Sunteti siguri ca doriti sa schimbati limba? In timpul schimbarii aplicatia va reporni.</string>
+    <string name="done">Închide</string>
 
 </resources>

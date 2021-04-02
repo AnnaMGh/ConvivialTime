@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,11 +161,12 @@ public class GameSetupFragment extends BaseFragment {
         }
 
         //set height depending on screen height
-        int height = GlobalSingleton.getInstance().getScreenMetrics(getActivity()).heightPixels;
-        int width = GlobalSingleton.getInstance().getScreenMetrics(getActivity()).widthPixels;
+        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
         int widthDp = (int) GlobalSingleton.getInstance().convertPixelsToDp(width, getActivity());
         int requiredWeightDp = (GlobalSingleton.getInstance().isTablet(getActivity()) ? 510 : 400);
-        int dp = GlobalSingleton.getInstance().getScreenMetrics(getActivity()).densityDpi;
+        int dp = displayMetrics.densityDpi;
         ViewGroup.LayoutParams params = rlStart.getLayoutParams();
         params.height = height - height / 6;
         rlStart.setLayoutParams(params);
@@ -261,7 +263,8 @@ public class GameSetupFragment extends BaseFragment {
         }, 5000, 5000);
 
         //load ad
-        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
+        //AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
+       // AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialTestUnitId); //todo aici decomeneaza
     }
 
     private void setListeners() {

@@ -89,6 +89,53 @@
         android:background="@drawable/round_corners_red"
         android:visibility="visible">
 
+        <TextView
+            android:id="@+id/txt_team"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="55dp"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/team"
+            android:textColor="@color/colorPrimary"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            tools:ignore="MissingPrefix" />
+
+        <View
+            android:id="@+id/view_tutorial_points"
+            android:layout_width="wrap_content"
+            android:layout_height="27dp"
+            android:layout_below="@id/txt_team"
+            android:layout_alignStart="@id/txt_points"
+            android:layout_alignEnd="@id/txt_points"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp" />
+
+        <TextView
+            android:id="@+id/txt_points"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/img_activity"
+            android:layout_below="@id/txt_team"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal|top"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/seriesPoints"
+            android:textAlignment="center"
+            android:textColor="@color/colorGray"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            tools:ignore="MissingPrefix" />
+
+        <!--activity-->
         <ImageView
             android:id="@+id/img_activity"
             android:layout_width="160dp"
@@ -97,6 +144,69 @@
             android:layout_centerHorizontal="true"
             android:layout_margin="0dp"
             android:src="@drawable/talk" />
+
+        <TextView
+            android:id="@+id/txt_activity"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/txt_word"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/activity_talk"
+            android:textColor="@color/colorGrayPawn"
+            android:textSize="27sp"
+            tools:ignore="MissingPrefix" />
+
+        <!--word-->
+        <TextView
+            android:id="@+id/txt_word"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:scrollHorizontally="false"
+            android:text="@string/word"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="32sp"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            android:id="@+id/txt_word_all"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_word"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="@string/round_for_all_the_teams"
+            android:textColor="@color/colorRed"
+            android:textSize="22sp"
+            tools:ignore="MissingPrefix" />
+
+        <!--time-->
+        <TextView
+            android:id="@+id/txt_time"
+            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@id/txt_word_all"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="30dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/colorGrayPawn"
+            android:textSize="25sp"
+            tools:ignore="MissingPrefix" />
 
         <ImageView
             android:id="@+id/img_time"
@@ -108,6 +218,7 @@
             android:alpha="0.5"
             android:src="@drawable/circle_black" />
 
+        <!--buttons-->
         <RelativeLayout
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
@@ -181,98 +292,6 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txt_activity"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/txt_word"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
-            android:text="@string/activity_talk"
-            android:textColor="@color/colorGrayPawn"
-            android:textSize="27sp"
-            tools:ignore="MissingPrefix" />
-
-        <TextView
-            android:id="@+id/txt_word"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:padding="10dp"
-            android:scrollHorizontally="false"
-            android:text="@string/word"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="32sp"
-            tools:ignore="MissingPrefix" />
-
-        <TextView
-            android:id="@+id/txt_word_all"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txt_word"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="@string/round_for_all_the_teams"
-            android:textColor="@color/colorRed"
-            android:textSize="22sp"
-            tools:ignore="MissingPrefix" />
-
-        <TextView
-            android:id="@+id/txt_points"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/img_activity"
-            android:layout_below="@id/txt_team"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal|top"
-            android:text="@string/seriesPoints"
-            android:textAlignment="center"
-            android:textColor="@color/colorGray"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            tools:ignore="MissingPrefix" />
-
-        <TextView
-            android:id="@+id/txt_time"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_below="@id/txt_word_all"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="30dp"
-            android:gravity="center"
-            android:text="0"
-            android:textColor="@color/colorGrayPawn"
-            android:textSize="25sp"
-            tools:ignore="MissingPrefix" />
-
-
-        <!--buttons-->
-        <TextView
-            android:id="@+id/txt_team"
-            fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp"
-            android:gravity="center"
-            android:text="@string/team"
-            android:textColor="@color/colorPrimary"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            tools:ignore="MissingPrefix" />
     </RelativeLayout>
 
     <!--game action moves-->
@@ -1538,5 +1557,11 @@
 
         </RelativeLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/test"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/colorBlue" />
 
 </RelativeLayout>

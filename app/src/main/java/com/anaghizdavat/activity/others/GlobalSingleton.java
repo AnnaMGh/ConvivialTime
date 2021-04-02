@@ -27,6 +27,7 @@ public class GlobalSingleton {
     private static Context mContext;
     private SharedPreferences prefs;
     private static boolean isDeviceTablet;
+    private DisplayMetrics displayMetrics;
 
 
     String key = "3BBD147B911E44B4C03AFD9AA6AC8D0826068DFBB450854CFD7A11201366E50A";
@@ -80,6 +81,23 @@ public class GlobalSingleton {
         return "";
     }
 
+    public void setBoolean(String key, boolean val, Context context) {
+        checkPreferences(context);
+        if (checkPreferences(context)) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(key, val);
+            edit.apply();
+        }
+
+    }
+
+    public boolean getBoolean(String key, Context context) {
+        if (checkPreferences(context)) {
+            return prefs.getBoolean(key, false);
+        }
+        return false;
+    }
+
     public void clearSharedPreferences(Context context) {
         checkPreferences(context);
         SharedPreferences.Editor edit = prefs.edit();
@@ -87,8 +105,11 @@ public class GlobalSingleton {
     }
 
     public DisplayMetrics getScreenMetrics(Activity activity) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        if (displayMetrics == null) {
+            displayMetrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        }
+
         return displayMetrics;
     }
 
@@ -118,6 +139,19 @@ public class GlobalSingleton {
         return px;
     }
 
+    public int convertDpToPixel(int dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return (int) px;
+    }
+
+    public float getScaleDensity(Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return metrics.scaledDensity;
+    }
+
     public float convertPixelsToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -128,7 +162,7 @@ public class GlobalSingleton {
     public float getCurrentDp(Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        return (float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
+        return (float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
     }
 
     public float calculateStringWidth(TextView txt) {
@@ -162,11 +196,6 @@ public class GlobalSingleton {
         if (!isDeviceTablet) {
             isDeviceTablet = ((BaseActivity) context).isTablet();
         }
-
         return isDeviceTablet;
     }
-
-
-
-
 }
