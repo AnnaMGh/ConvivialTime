@@ -1,5 +1,6 @@
 package com.anaghizdavat.activity.model;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -192,6 +193,60 @@ public class Team {
         movePawn();
     }
 
+    public View getFutureView(int value) {
+
+        //get parity
+        int initParity = line % 2;
+
+        //if even => add | if odd => subtract
+        int futurteColumn = column+ (initParity == 0 ? 1 : -1) * value;
+        int futurteLine = line;
+        int futurePosition = position;
+
+        if (value > 0) {
+            if ((futurteColumn > 2 && initParity == 0) || futurteColumn < 0 && initParity == 1) {
+                futurteColumn = Math.abs(3 + (initParity == 0 ? -1 : 1) * futurteColumn);
+                futurteLine++;
+                // change parity
+                futurteColumn = Math.abs(2 - futurteColumn);
+
+                //finish position
+                if (futurteLine > 4) {
+                    futurteLine = 4;
+                    futurteColumn = 2;
+                }
+            }
+            futurePosition = 2;
+        } else if (value < 0) {
+            //don't change the resource if it makes steps back
+            //because will delete the current player that took the gameRank of this pawn
+
+            if ((futurteColumn < 0 && initParity == 0) || (futurteColumn > 2 && initParity == 1)) {
+                futurteColumn = Math.abs(3 + (initParity == 0 ? 1 : -1) * futurteColumn);
+                futurteLine--;
+                // change parity
+                futurteColumn = Math.abs(2 - futurteColumn);
+                //keep position
+            }
+
+            //if just arrived on start column
+            if (futurteLine == 0 && futurteColumn == 0) {
+                futurePosition = 3; //move on last position
+            }
+
+            //if was on start position
+            if (futurteLine < 0) {
+                futurteLine = 0;
+                futurteColumn = 0;
+                futurePosition--;
+            }
+
+        }
+
+
+      return  ((LinearLayout)llPanel.getChildAt(futurteLine)).getChildAt(futurteColumn);
+    }
+
     private void movePawn() {
 
 //        android.view.View android.view.ViewGroup.getChildAt(int)' on a null object reference
@@ -252,5 +307,9 @@ public class Team {
                 return position > p;
             }
         }
+    }
+
+    public View getCurrentParent(){
+        return  rlColumn;
     }
 }

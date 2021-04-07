@@ -88,18 +88,18 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:background="@drawable/round_corners_red"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/txt_team"
             fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/team"
             android:textColor="@color/colorPrimary"
             android:textSize="25sp"
@@ -109,13 +109,12 @@
         <View
             android:id="@+id/view_tutorial_points"
             android:layout_width="wrap_content"
-            android:layout_alignStart="@id/txt_points"
-            android:layout_alignEnd="@id/txt_points"
             android:layout_height="20dp"
             android:layout_below="@id/txt_team"
+            android:layout_alignStart="@id/txt_points"
+            android:layout_alignEnd="@id/txt_points"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-         />
+            android:layout_marginTop="0dp" />
 
         <TextView
             android:id="@+id/txt_points"
@@ -123,13 +122,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@id/img_activity"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_below="@id/txt_team"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="10dp"
             android:gravity="center_horizontal|top"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/seriesPoints"
             android:textAlignment="center"
             android:textColor="@color/colorGray"
@@ -151,11 +150,11 @@
             fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:layout_above="@id/txt_word"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/activity_talk"
             android:textColor="@color/colorGrayPawn"
             android:textSize="20sp"
@@ -194,6 +193,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="@string/round_for_all_the_teams"
             android:textColor="@color/colorRed"
             android:textSize="15sp"
@@ -326,6 +327,8 @@
 
         <TextView
             android:id="@+id/txt_points_02"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -366,6 +369,7 @@
 
             <!--start-->
             <LinearLayout
+                android:id="@+id/rl_panel_01"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -514,6 +518,7 @@
 
             <!--line2-->
             <LinearLayout
+                android:id="@+id/rl_panel_02"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="-15sp"
@@ -665,6 +670,7 @@
 
             <!--line 3-->
             <LinearLayout
+                android:id="@+id/rl_panel_03"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="-15dp"
@@ -815,6 +821,7 @@
 
             <!--line 4-->
             <LinearLayout
+                android:id="@+id/rl_panel_04"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="-15dp"
@@ -965,6 +972,7 @@
 
             <!--final-->
             <LinearLayout
+                android:id="@+id/rl_panel_05"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="-15dp"
@@ -1568,9 +1576,9 @@
 
     <View
         android:id="@+id/test"
-        android:background="@color/colorBlue"
         android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp"
+        android:background="@color/colorBlue" />
 
 
 </RelativeLayout>

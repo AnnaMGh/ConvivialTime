@@ -41,5 +41,18 @@
     <string name="select_team_correct">Selectați echipa care a răspuns corect</string>
     <string name="sure_change_language">Sunteti siguri ca doriti sa schimbati limba? In timpul schimbarii aplicatia va reporni.</string>
     <string name="done">Închide</string>
+    <string name="tutorial_01_02">Runda curentă și punctele rundei</string>
+    <string name="tutorial_01_01">Echipa actuală</string>
+    <string name="tutorial_01_03">Tipul activității ( vorbit/desenat/mimat)</string>
+    <string name="tutorial_01_04">Cuvânt de ghicit de către colegii de echipă</string>
+    <string name="tutorial_01_05">Timp rămas pentru a ghici cuvântul</string>
+    <string name="tutorial_03_01">Când apare acest mod, orice jucător poate ghici cuvântul</string>
+    <string name="tutorial_04_01">Când o echipă o întrece pe alta, o împinge înapoi</string>
+    <string name="tutorial_02_06">Piesele se mișcă în funcție de punctele rundei, de la STÂNGA la DREPTA</string>
+    <string name="tutorial_02_05">Piesele se mișcă în funcție de punctele rundei, de la DREPTA la  STÂNGA</string>
+    <string name="tutorial_02_04">Piesele se mișcă în funcție de punctele rundei, de la STÂNGA la DREPTA</string>
+    <string name="tutorial_02_03">Piesele se mișcă în funcție de punctele rundei, de la DREPTA la  STÂNGA</string>
+    <string name="tutorial_02_02">Piesele se mișcă în funcție de punctele rundei, de la STÂNGA la DREPTA</string>
+    <string name="tutorial_02_01">Runda actuală și numărul de pași făcuți de echipa actuală</string>
 
 </resources>

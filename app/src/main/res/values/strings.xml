@@ -52,10 +52,22 @@
     <string name="tablet" translatable="false">Tablet</string>
 
     <!--tutorials-->
-    <string name="tutorial_1">Current team name</string>
-    <string name="tutorial_2">Current round and points of the round</string>
-    <string name="tutorial_3">Activity type (talk/draw/mime)</string>
-    <string name="tutorial_4">Word to guess by your team mates</string>
-    <string name="tutorial_5">Time left to guess the word</string>
+    <string name="tutorial_01_01">Current team</string>
+    <string name="tutorial_01_02">Current round and points of the round</string>
+    <string name="tutorial_01_03">Activity type (talk/draw/mime)</string>
+    <string name="tutorial_01_04">Word to guess by your teammates</string>
+    <string name="tutorial_01_05">Time left to guess the word</string>
+
+    <string name="tutorial_02_01">Current round and number of steps made by current team</string>
+    <string name="tutorial_02_02">The pieces move according to the points of the round, from LEFT to RIGHT</string>
+    <string name="tutorial_02_03">The pieces move according to the points of the round, from RIGHT to LEFT</string>
+    <string name="tutorial_02_04">The pieces move according to the points of the round, from LEFT to RIGHT</string>
+    <string name="tutorial_02_05">The pieces move according to the points of the round, from RIGHT to LEFT</string>
+    <string name="tutorial_02_06">The pieces move according to the points of the round, from LEFT to RIGHT</string>
+
+    <string name="tutorial_03_01">When this mode appears, any player can guess the word</string>
+
+    <string name="tutorial_04_01">When a team cross another, it pushes it back</string>
+
 
 </resources>

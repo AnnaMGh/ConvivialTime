@@ -20,6 +20,7 @@ import com.anaghizdavat.activity.model.ObjectListener;
 import com.anaghizdavat.activity.model.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GlobalSingleton {
 
@@ -28,6 +29,7 @@ public class GlobalSingleton {
     private SharedPreferences prefs;
     private static boolean isDeviceTablet;
     private DisplayMetrics displayMetrics;
+    private int[] tutorialsStatus;
 
 
     String key = "3BBD147B911E44B4C03AFD9AA6AC8D0826068DFBB450854CFD7A11201366E50A";
@@ -79,6 +81,23 @@ public class GlobalSingleton {
             return prefs.getString(key, "");
         }
         return "";
+    }
+
+    public void setInteger(String key, int val, Context context) {
+        checkPreferences(context);
+        if (checkPreferences(context)) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putInt(key, val);
+            edit.apply();
+        }
+
+    }
+
+    public int getInteger(String key, Context context) {
+        if (checkPreferences(context)) {
+            return prefs.getInt(key, 0);
+        }
+        return 0;
     }
 
     public void setBoolean(String key, boolean val, Context context) {
@@ -197,5 +216,57 @@ public class GlobalSingleton {
             isDeviceTablet = ((BaseActivity) context).isTablet();
         }
         return isDeviceTablet;
+    }
+
+    public boolean isTutorialDone(int tutorialId) {
+        if (tutorialsStatus == null) {
+            getTutorials();
+        }
+
+        if (tutorialsStatus.length>0) {
+            for (int status : tutorialsStatus) {
+                if (status == tutorialId) {
+                    return true;
+                }
+            }
+        }
+
+
+        return false;
+    }
+
+    public void addTutorial(int id) {
+        if (tutorialsStatus == null) {
+            getTutorials();
+        }
+
+        int[] tutorials = new int[tutorialsStatus.length + 1];
+        System.arraycopy(tutorialsStatus, 0, tutorials, 0, tutorialsStatus.length);
+        tutorials[tutorialsStatus.length] = id;
+        tutorialsStatus = tutorials;
+
+        StringBuilder tutorialString = new StringBuilder();
+        for (int tutorial : tutorials) {
+            tutorialString.append(",").append(tutorial);
+        }
+        if (tutorialString.length() > 0) {
+            setString(Constants.KEY_TUTORIAL, tutorialString.substring(1), mContext);
+        }
+    }
+
+    private void getTutorials() {
+        String tutorials = getString(Constants.KEY_TUTORIAL, mContext);
+
+        if (tutorials.length() > 0) {
+            String[] tutorialArray = tutorials.split(",");
+            tutorialsStatus = new int[tutorialArray.length];
+            for (int i = 0; i < tutorialArray.length; i++) {
+                tutorialsStatus[i] = Integer.parseInt(tutorialArray[i]);
+            }
+        }else
+        {
+            tutorialsStatus = new int[0];
+        }
+
     }
 }

@@ -56,7 +56,7 @@ public class WizardUI {
         txtV.setX(x);
         txtV.setY(y);
         txtV.setText(title);
-        txtV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        txtV.setTextSize(TypedValue.COMPLEX_UNIT_SP, GlobalSingleton.getInstance().isTablet(context)?20:16);
         txtV.setTextColor(context.getResources().getColor(R.color.colorWhite));
         txtV.setBackground(context.getResources().getDrawable(R.drawable.round_corners_gray));
 
@@ -135,13 +135,14 @@ public class WizardUI {
 
     public static TextView getTextBtn(Context context, float x, float y, int width, int height) {
 
+        int widthExtension= GlobalSingleton.getInstance().convertDpToPixel((GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, context).equalsIgnoreCase("en")?0:5), context);
         TextView txt = new TextView(context);
         txt.setX(x - GlobalSingleton.getInstance().convertDpToPixel(15, context));
         txt.setY(y);
         txt.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         txt.setGravity(Gravity.CENTER);
-        txt.setTextSize(16);
-        txt.setWidth(width);
+        txt.setTextSize(GlobalSingleton.getInstance().isTablet(context)?20:16);
+        txt.setWidth(width + widthExtension);
         txt.setHeight(height);
         txt.setTextColor(context.getResources().getColor(R.color.colorWhite));
         txt.setBackground(context.getResources().getDrawable(R.drawable.round_corners_gray));
