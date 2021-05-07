@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
         setListeners();
 
         //check tutorial status
-        GlobalSingleton.getInstance().setString(Constants.KEY_TUTORIAL, "", this); //TODO remove this
+       // GlobalSingleton.getInstance().setString(Constants.KEY_TUTORIAL, "", this); //TODO remove this
     }
 
     @Override

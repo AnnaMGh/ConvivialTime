@@ -51,10 +51,6 @@ public class GameFragment extends BaseFragment {
 
     //views
 
-    //next team
-    @BindView(R.id.test)
-    View test;
-
     @BindView(R.id.rl_next_team)
     RelativeLayout rlNextTeam;
     @BindView(R.id.txt_team_name)
@@ -465,16 +461,15 @@ public class GameFragment extends BaseFragment {
 
         int textPos = (displayMetrics.heightPixels
                 - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:200), currentActivity));
+                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:180), currentActivity));
 
         //view targets
         final TutorialTarget[] targets = new TutorialTarget[]{
-                //  new TutorialTarget(txtTeam, 0,
-                new TutorialTarget(getActivity().findViewById(R.id.test), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
+//                new TutorialTarget(getActivity().findViewById(R.id.test), 0,
+//                        getResources().getString(getResources().getIdentifier("tutorial_01_01",
+//                                "string", currentActivity.getPackageName())),
+//                        textPos,
+//                        FocusView.FocusShape.Rectangle),
                 new TutorialTarget(getActivity().findViewById(R.id.txt_team), 0,
                         getResources().getString(getResources().getIdentifier("tutorial_01_01",
                                 "string", currentActivity.getPackageName())),
@@ -567,7 +562,7 @@ public class GameFragment extends BaseFragment {
 
         int textPos = (displayMetrics.heightPixels
                 - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:200), currentActivity));
+                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:180), currentActivity));
 
         //view targets
         final TutorialTarget[] targets = new TutorialTarget[]{
