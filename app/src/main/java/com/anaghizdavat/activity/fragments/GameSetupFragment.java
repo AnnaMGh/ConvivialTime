@@ -263,8 +263,8 @@ public class GameSetupFragment extends BaseFragment {
         }, 5000, 5000);
 
         //load ad
-        //AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
-       // AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialTestUnitId); //todo aici decomeneaza
+        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
+       // AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialTestUnitId);
     }
 
     private void setListeners() {

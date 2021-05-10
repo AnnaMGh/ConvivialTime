@@ -6,7 +6,7 @@ android {
         applicationId "com.anaghizdavat.activity"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 7
+        versionCode 8
         versionName "1.0.4"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,13 +37,13 @@ android {
     flavorDimensions "services"
     productFlavors {
         gms {
-            versionCode 7
+            versionCode 8
             versionName "1.0.4"
             dimension "services"
         }
         hms {
-            versionCode 8
-            versionName "1.0.4"
+            versionCode 9
+            versionName "1.0.5"
             dimension "services"
         }
     }
