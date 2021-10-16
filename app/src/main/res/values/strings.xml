@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ActivityTime</string>
+    <string name="app_name">ConvivialTime</string>
     <string name="en" translatable="false">EN</string>
     <string name="ro" translatable="false">RO</string>
     <string name="start">Start</string>

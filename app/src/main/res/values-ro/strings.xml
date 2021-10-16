@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ActivityTime</string>
+    <string name="app_name">ConvivialTime</string>
     <string name="correct">Corect</string>
     <string name="next">Următorul</string>
     <string name="start">Start</string>

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anaghizdavat.activity">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.anaghizdavat.activity.MainApp"
@@ -19,11 +19,25 @@
             android:name="com.anaghizdavat.activity.activities.SplashActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
+
+            <!--region launcher-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!--end launcher-->
+
+            <!--region deep linking-->
+            <intent-filter>
+                <data
+                    android:host="www.clickmed.ro"
+                    android:scheme="https" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <!--end deep linking -->
         </activity>
 
         <!--Main-->
@@ -31,7 +45,7 @@
             android:name="com.anaghizdavat.activity.activities.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <!--Base-->
         <activity

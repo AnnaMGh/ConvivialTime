@@ -31,14 +31,11 @@ public class AdHandler {
     public static void initialize(Context context, AdView bannerAd, LinearLayout llBannerParent) {
         mContext = context;
         Log.d("adHandler", "initialize");
-        MobileAds.initialize(context, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                Log.d("adHandler", "initialize - onInitializationComplete");
+        MobileAds.initialize(context, initializationStatus -> {
+            Log.d("adHandler", "initialize - onInitializationComplete");
 
-                if (bannerAd != null && llBannerParent != null) {
-                    addBannerAd(context, bannerAd, llBannerParent);
-                }
+            if (bannerAd != null && llBannerParent != null) {
+                addBannerAd(context, bannerAd, llBannerParent);
             }
         });
     }
