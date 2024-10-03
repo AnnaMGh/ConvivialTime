@@ -38,43 +38,23 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class GameSetupFragment extends BaseFragment {
 
-    @BindView(R.id.scroll)
     ScrollView scroll;
-    @BindView(R.id.rl_start)
     RelativeLayout rlStart;
-    @BindView(R.id.rl_parent_time)
     RelativeLayout rlParentTime;
-    @BindView(R.id.rl_time_01)
     RelativeLayout rlTime01;
-    @BindView(R.id.rl_time_02)
     RelativeLayout rlTime02;
-    @BindView(R.id.rl_time_03)
     RelativeLayout rlTime03;
-    @BindView(R.id.img_type_01)
     ImageView imgType01;
-    @BindView(R.id.img_type_02)
     ImageView imgType02;
-    @BindView(R.id.img_multiple_01)
     TextView txtMultiple01;
-    @BindView(R.id.img_multiple_02)
     TextView txtMultiple02;
-    @BindView(R.id.img_multiple_03)
     TextView txtMultiple03;
-    @BindView(R.id.l_parent_multiple)
     ViewGroup lParentMultiple;
-    @BindView(R.id.ll_parent_team)
     LinearLayout llParentTeam;
-    @BindView(R.id.txt_pawn_change)
     TextView txtPawnChange;
-    @BindView(R.id.txt_nr_players)
     TextView txtNrPlayers;
-    @BindView(R.id.btn_start)
     Button btnStart;
 
     //private
@@ -96,7 +76,31 @@ public class GameSetupFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_game_setup, container, false);
 
-        ButterKnife.bind(this, rootView);
+        scroll = rootView.findViewById(R.id.scroll);
+        rlStart = rootView.findViewById(R.id.rl_start);
+        rlParentTime = rootView.findViewById(R.id.rl_parent_time);
+        rlTime01 = rootView.findViewById(R.id.rl_time_01);
+        rlTime02 = rootView.findViewById(R.id.rl_time_02);
+        rlTime03 = rootView.findViewById(R.id.rl_time_03);
+        imgType01 = rootView.findViewById(R.id.img_type_01);
+        imgType02 = rootView.findViewById(R.id.img_type_02);
+        txtMultiple01 = rootView.findViewById(R.id.img_multiple_01);
+        txtMultiple02 = rootView.findViewById(R.id.img_multiple_02);
+        txtMultiple03 = rootView.findViewById(R.id.img_multiple_03);
+        lParentMultiple = rootView.findViewById(R.id.l_parent_multiple);
+        llParentTeam = rootView.findViewById(R.id.ll_parent_team);
+        txtPawnChange = rootView.findViewById(R.id.txt_pawn_change);
+        txtNrPlayers = rootView.findViewById(R.id.txt_nr_players);
+        btnStart = rootView.findViewById(R.id.btn_start);
+
+
+        rootView.findViewById(R.id.img_arrow_left).setOnClickListener(v->{
+            onClickLeft();
+        });
+
+        rootView.findViewById(R.id.img_arrow_right).setOnClickListener(v->{
+            onClickRight();
+        });
 
         initialize();
         setListeners();
@@ -129,7 +133,6 @@ public class GameSetupFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.img_arrow_left)
     void onClickLeft() {
         int nr = Integer.parseInt(txtNrPlayers.getText().toString());
         if (nr > 2) {
@@ -140,7 +143,6 @@ public class GameSetupFragment extends BaseFragment {
         }
     }
 
-    @OnClick(R.id.img_arrow_right)
     void onClickRight() {
         int nr = Integer.parseInt(txtNrPlayers.getText().toString());
         if (nr < 4) {

@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anaghizdavat.activity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--        tools:replace="android:fullBackupContent, android:adservices.AD_SERVICES_CONFIG"-->
 
+    <!--    tools:replace="android:fullBackupContent,android:resource,android:adservices.AD_SERVICES_CONFIG"-->
+    <!--    android:adservices.AD_SERVICES_CONFIG="@xml/my_custom_ad_services_config"-->
     <application
         android:name="com.anaghizdavat.activity.MainApp"
         android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustResize"
+        tools:node="remove"
+        tools:replace="android:fullBackupContent">
 
         <!--Splash-->
         <activity
             android:name="com.anaghizdavat.activity.activities.SplashActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="portrait">
 
             <!--region launcher-->
@@ -28,15 +36,15 @@
             <!--end launcher-->
 
             <!--region deep linking-->
-            <intent-filter>
-                <data
-                    android:host="www.clickmed.ro"
-                    android:scheme="https" />
-                <action android:name="android.intent.action.VIEW" />
+            <!--            <intent-filter>-->
+            <!--                <data-->
+            <!--                    android:host="www.clickmed.ro"-->
+            <!--                    android:scheme="https" />-->
+            <!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.DEFAULT" />-->
+            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+            <!--            </intent-filter>-->
             <!--end deep linking -->
         </activity>
 
@@ -44,6 +52,7 @@
         <activity
             android:name="com.anaghizdavat.activity.activities.MainActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
@@ -51,6 +60,7 @@
         <activity
             android:name="com.anaghizdavat.activity.activities.BaseActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 

@@ -1,6 +1,5 @@
 package com.anaghizdavat.activity;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +12,11 @@ import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class AdHandler {
     private static InterstitialAd mInterstitialAd;
@@ -46,94 +43,94 @@ public class AdHandler {
         }
 
         Log.d("adHandler", "addInterstitialAd");
-        mInterstitialAd = new InterstitialAd(mContext);
-        mInterstitialAd.setAdUnitId(unitId);
-
-        //ad for children
-        Bundle extras = new Bundle();
-        extras.putString("max_ad_content_rating", "G");
-
-        AdRequest request = new AdRequest.Builder()
-                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                .tagForChildDirectedTreatment(true)
-                .build();
-        mInterstitialAd.loadAd(request);
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                Log.d("adHandler", "addInterstitialAd - onAdLoaded");
-            }
-
-            @Override
-            public void onAdFailedToLoad(LoadAdError adError) {
-                // Code to be executed when an ad request fails.
-                Log.d("adHandler", "addInterstitialAd - onAdFailedToLoad" + adError.toString());
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_FAILED, bundle);
-
-                //send data back
-                if (listener != null) {
-                    listener.getObject("Failed");
-                }
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-                Log.d("adHandler", "addInterstitialAd - onAdOpened");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_OPENED, bundle);
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-                Log.d("adHandler", "addInterstitialAd - onAdClicked");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLICKED, bundle);
-
-                //send data back
-                if (listener != null) {
-                    listener.getObject("Clicked");
-                }
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-                Log.d("adHandler", "addInterstitialAd - onAdLeftApplication");
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the interstitial ad is closed.
-                Log.d("adHandler", "addInterstitialAd - onAdClosed");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
-
-                if (listener != null) {
-                    listener.getObject("Closed");
-                }
-            }
-        });
+//        mInterstitialAd = new InterstitialAd(mContext);
+//        mInterstitialAd.setAdUnitId(unitId);
+//
+//        //ad for children
+//        Bundle extras = new Bundle();
+//        extras.putString("max_ad_content_rating", "G");
+//
+//        AdRequest request = new AdRequest.Builder()
+//                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+//                .tagForChildDirectedTreatment(true)
+//                .build();
+//        mInterstitialAd.loadAd(request);
+//
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                // Code to be executed when an ad finishes loading.
+//                Log.d("adHandler", "addInterstitialAd - onAdLoaded");
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(LoadAdError adError) {
+//                // Code to be executed when an ad request fails.
+//                Log.d("adHandler", "addInterstitialAd - onAdFailedToLoad" + adError.toString());
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_FAILED, bundle);
+//
+//                //send data back
+//                if (listener != null) {
+//                    listener.getObject("Failed");
+//                }
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                // Code to be executed when the ad is displayed.
+//                Log.d("adHandler", "addInterstitialAd - onAdOpened");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_OPENED, bundle);
+//            }
+//
+//            @Override
+//            public void onAdClicked() {
+//                // Code to be executed when the user clicks on an ad.
+//                Log.d("adHandler", "addInterstitialAd - onAdClicked");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLICKED, bundle);
+//
+//                //send data back
+//                if (listener != null) {
+//                    listener.getObject("Clicked");
+//                }
+//            }
+//
+//            @Override
+//            public void onAdLeftApplication() {
+//                // Code to be executed when the user has left the app.
+//                Log.d("adHandler", "addInterstitialAd - onAdLeftApplication");
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+//                // Code to be executed when the interstitial ad is closed.
+//                Log.d("adHandler", "addInterstitialAd - onAdClosed");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeInterstitial);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
+//
+//                if (listener != null) {
+//                    listener.getObject("Closed");
+//                }
+//            }
+//        });
     }
 
     public static void addBannerAd(Context context, AdView adBanner, LinearLayout llBannerParent) {
@@ -142,84 +139,84 @@ public class AdHandler {
         }
 
         Log.d("adHandler", "addBannerAd");
-        mBannerAd = adBanner;
-        mLlBannerParent = llBannerParent;
-
-        //ad for children
-        Bundle extras = new Bundle();
-        extras.putString("max_ad_content_rating", "G");
-
-        AdRequest request = new AdRequest.Builder()
-                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                .tagForChildDirectedTreatment(true)
-                .build();
-        mBannerAd.loadAd(request);
-
-        mBannerAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                // Code to be executed when an ad finishes loading.
-                Log.d("adHandler", "addBannerAd - onAdLoaded");
-
-                llBannerParent.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(LoadAdError adError) {
-                // Code to be executed when an ad request fails.
-                Log.d("adHandler", "addBannerAd - onAdFailedToLoad" + adError.getMessage());
-
-                llBannerParent.setVisibility(View.GONE);
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_FAILED, bundle);
-            }
-
-            @Override
-            public void onAdOpened() {
-                // Code to be executed when the ad is displayed.
-                Log.d("adHandler", "addBannerAd - onAdOpened");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_OPENED, bundle);
-            }
-
-            @Override
-            public void onAdClicked() {
-                // Code to be executed when the user clicks on an ad.
-                Log.d("adHandler", "addBannerAd - onAdClicked");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLICKED, bundle);
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
-                Log.d("adHandler", "addBannerAd - onAdLeftApplication");
-            }
-
-            @Override
-            public void onAdClosed() {
-                // Code to be executed when the interstitial ad is closed.
-                Log.d("adHandler", "addBannerAd - onAdClosed");
-
-                //send event
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
-                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
-                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
-            }
-        });
+//        mBannerAd = adBanner;
+//        mLlBannerParent = llBannerParent;
+//
+//        //ad for children
+//        Bundle extras = new Bundle();
+//        extras.putString("max_ad_content_rating", "G");
+//
+//        AdRequest request = new AdRequest.Builder()
+//                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
+//                .tagForChildDirectedTreatment(true)
+//                .build();
+//        mBannerAd.loadAd(request);
+//
+//        mBannerAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                // Code to be executed when an ad finishes loading.
+//                Log.d("adHandler", "addBannerAd - onAdLoaded");
+//
+//                llBannerParent.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(LoadAdError adError) {
+//                // Code to be executed when an ad request fails.
+//                Log.d("adHandler", "addBannerAd - onAdFailedToLoad" + adError.getMessage());
+//
+//                llBannerParent.setVisibility(View.GONE);
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_FAILED, bundle);
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                // Code to be executed when the ad is displayed.
+//                Log.d("adHandler", "addBannerAd - onAdOpened");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_OPENED, bundle);
+//            }
+//
+//            @Override
+//            public void onAdClicked() {
+//                // Code to be executed when the user clicks on an ad.
+//                Log.d("adHandler", "addBannerAd - onAdClicked");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLICKED, bundle);
+//            }
+//
+//            @Override
+//            public void onAdLeftApplication() {
+//                // Code to be executed when the user has left the app.
+//                Log.d("adHandler", "addBannerAd - onAdLeftApplication");
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+//                // Code to be executed when the interstitial ad is closed.
+//                Log.d("adHandler", "addBannerAd - onAdClosed");
+//
+//                //send event
+//                Bundle bundle = new Bundle();
+//                bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, mContext));
+//                bundle.putString(Constants.EVENT_PARAM_AD, Constants.adTypeBanner);
+//                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
+//            }
+//        });
     }
 
     public static void showInterstitialAd(Context context) {
@@ -227,28 +224,34 @@ public class AdHandler {
             mContext = context;
         }
 
-        Log.d("adHandler", "showInterstitalAd");
-        if (GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
-            Log.d("adHandler", "ad loaded and showed");
-            mInterstitialAd.show();
-        }
+
+//        Log.d("adHandler", "showInterstitalAd");
+//        if (GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
+//            Log.d("adHandler", "ad loaded and showed");
+//            mInterstitialAd.show();
+//        }
     }
 
     public static void showInterstitialAd(Context context, ObjectListener objectListener) {
         listener = objectListener;
 
+        listener = objectListener;
+        if (listener != null) {
+            listener.getObject("Closed");
+        }
+
         if (context != null) {
             mContext = context;
         }
 
-        Log.d("adHandler", "showInterstitalAd");
-        if (mInterstitialAd!=null && GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
-            Log.d("adHandler", "ad loaded and showed");
-            mInterstitialAd.show();
-        } else {
-            if (listener != null) {
-                listener.getObject("No internet");
-            }
-        }
+//        Log.d("adHandler", "showInterstitalAd");
+//        if (mInterstitialAd != null && GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
+//            Log.d("adHandler", "ad loaded and showed");
+//            mInterstitialAd.show();
+//        } else {
+//            if (listener != null) {
+//                listener.getObject("No internet");
+//            }
+//        }
     }
 }

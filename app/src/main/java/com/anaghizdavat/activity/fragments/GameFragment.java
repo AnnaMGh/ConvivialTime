@@ -44,100 +44,56 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class GameFragment extends BaseFragment {
 
-    //views
-
-    @BindView(R.id.rl_next_team)
     RelativeLayout rlNextTeam;
-    @BindView(R.id.txt_team_name)
     TextView txtTeamNameTurn;
-    @BindView(R.id.img_team)
     ImageView imgTeam;
-    @BindView(R.id.btn_continue)
     Button btnContinue;
 
     //game
-    @BindView(R.id.rl_game)
     RelativeLayout rlGame;
-    @BindView(R.id.btn_start)
     Button btnStart;
-    @BindView(R.id.btn_correct)
     Button btnCorrect;
-    @BindView(R.id.btn_next_action)
     Button btnNextAc;
-    @BindView(R.id.img_toggle_show)
     ImageView imgToggleVisibility;
-    @BindView(R.id.txt_team)
     TextView txtTeam;
-    @BindView(R.id.view_tutorial_points)
     View viewTutorialPoints;
-    @BindView(R.id.txt_points)
     TextView txtRoundPoints;
-    @BindView(R.id.img_activity)
     ImageView imgActivity;
-    @BindView(R.id.txt_activity)
     TextView txtActivity;
-    @BindView(R.id.txt_word)
     TextView txtWord;
-    @BindView(R.id.txt_word_all)
     TextView txtWordAll;
-    @BindView(R.id.txt_time)
     TextView txtTime;
-    @BindView(R.id.img_time)
     ImageView imgTime;
-    @BindView(R.id.rl_bottom)
     RelativeLayout rlBottom;
 
     //game action moves
-    @BindView(R.id.rl_game_action)
     RelativeLayout rlGameAction;
-    @BindView(R.id.rl_panel)
     LinearLayout llPanel;
-    @BindView(R.id.btn_next)
     Button btnNext;
-    @BindView(R.id.txt_team_02)
     TextView txtTeam02;
-    @BindView(R.id.txt_points_02)
     TextView txtRoundPoints02;
-    @BindView(R.id.txt_word_all_team_points)
     TextView txtWordAllTeamPoints;
 
     //finish
-    @BindView(R.id.scroll_finish)
     ScrollView scrollFinish;
-    @BindView(R.id.txt_game_ranking_lbl)
     TextView txtGameRankingLbl;
-    @BindView(R.id.ll_parent_game_ranking)
     LinearLayout llParentRanking;
-    @BindView(R.id.txt_game_series_ranking_lbl)
     TextView txtGameSeriesRankingLbl;
-    @BindView(R.id.ll_parent_game_series_ranking)
     LinearLayout llParentGameSeriesRanking;
-    @BindView(R.id.ll_vertical)
     LinearLayout llVertical;
-    @BindView(R.id.btn_again)
     Button btnPlayAgain;
-    @BindView(R.id.txt_game_winner)
     TextView txtGameWinner;
 
     //finish series ranking
-    @BindView(R.id.scroll_series_finish)
     ScrollView scrollSeriesFinish;
-    @BindView(R.id.txt_series_ranking)
     TextView txtSeriesRanking;
-    @BindView(R.id.ll_pawns_rank_1)
     LinearLayout llPawnsRank1;
-    @BindView(R.id.ll_pawns_rank_2)
     LinearLayout llPawnsRank2;
-    @BindView(R.id.ll_pawns_rank_3)
     LinearLayout llPawnsRank3;
-    @BindView(R.id.ll_parent_series_ranking)
     LinearLayout llParentSeriesRanking;
-    @BindView(R.id.btn_series_again)
     Button btnSeriesPlayAgain;
 
     //from other class
@@ -184,7 +140,54 @@ public class GameFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_game, container, false);
 
-        ButterKnife.bind(this, rootView);
+        rlNextTeam = rootView.findViewById(R.id.rl_next_team);
+        txtTeamNameTurn = rootView.findViewById(R.id.txt_team_name);
+        imgTeam = rootView.findViewById(R.id.img_team);
+        btnContinue = rootView.findViewById(R.id.btn_continue);
+
+        //game
+        rlGame = rootView.findViewById(R.id.rl_game);
+        btnStart = rootView.findViewById(R.id.btn_start);
+        btnCorrect = rootView.findViewById(R.id.btn_correct);
+        btnNextAc = rootView.findViewById(R.id.btn_next_action);
+        imgToggleVisibility = rootView.findViewById(R.id.img_toggle_show);
+        txtTeam = rootView.findViewById(R.id.txt_team);
+        viewTutorialPoints = rootView.findViewById(R.id.view_tutorial_points);
+        txtRoundPoints = rootView.findViewById(R.id.txt_points);
+        imgActivity = rootView.findViewById(R.id.img_activity);
+        txtActivity = rootView.findViewById(R.id.txt_activity);
+        txtWord = rootView.findViewById(R.id.txt_word);
+        txtWordAll = rootView.findViewById(R.id.txt_word_all);
+        txtTime = rootView.findViewById(R.id.txt_time);
+        imgTime = rootView.findViewById(R.id.img_time);
+        rlBottom = rootView.findViewById(R.id.rl_bottom);
+
+        //game action moves
+        rlGameAction = rootView.findViewById(R.id.rl_game_action);
+        llPanel = rootView.findViewById(R.id.rl_panel);
+        btnNext = rootView.findViewById(R.id.btn_next);
+        txtTeam02 = rootView.findViewById(R.id.txt_team_02);
+        txtRoundPoints02 = rootView.findViewById(R.id.txt_points_02);
+        txtWordAllTeamPoints = rootView.findViewById(R.id.txt_word_all_team_points);
+
+        //finish
+        scrollFinish = rootView.findViewById(R.id.scroll_finish);
+        txtGameRankingLbl = rootView.findViewById(R.id.txt_game_ranking_lbl);
+        llParentRanking = rootView.findViewById(R.id.ll_parent_game_ranking);
+        txtGameSeriesRankingLbl = rootView.findViewById(R.id.txt_game_series_ranking_lbl);
+        llParentGameSeriesRanking = rootView.findViewById(R.id.ll_parent_game_series_ranking);
+        llVertical = rootView.findViewById(R.id.ll_vertical);
+        btnPlayAgain = rootView.findViewById(R.id.btn_again);
+        txtGameWinner = rootView.findViewById(R.id.txt_game_winner);
+
+        //finish series ranking
+        scrollSeriesFinish = rootView.findViewById(R.id.scroll_series_finish);
+        txtSeriesRanking = rootView.findViewById(R.id.txt_series_ranking);
+        llPawnsRank1 = rootView.findViewById(R.id.ll_pawns_rank_1);
+        llPawnsRank2 = rootView.findViewById(R.id.ll_pawns_rank_2);
+        llPawnsRank3 = rootView.findViewById(R.id.ll_pawns_rank_3);
+        llParentSeriesRanking = rootView.findViewById(R.id.ll_parent_series_ranking);
+        btnSeriesPlayAgain = rootView.findViewById(R.id.btn_series_again);
 
         initialize();
         setListeners();

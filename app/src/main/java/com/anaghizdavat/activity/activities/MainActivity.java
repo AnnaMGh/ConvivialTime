@@ -23,18 +23,18 @@ import com.anaghizdavat.activity.others.KeyboardUtils;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.rl_root_main)
+//    @BindView(R.id.rl_root_main)
     RelativeLayout rlRootMain;
-    @BindView(R.id.txt_en)
+//    @BindView(R.id.txt_en)
     TextView txtEn;
-    @BindView(R.id.txt_ro)
+//    @BindView(R.id.txt_ro)
     TextView txtRo;
-    @BindView(R.id.ll_parent_ad)
+//    @BindView(R.id.ll_parent_ad)
     LinearLayout llParentAd;
 //    @BindView(R.id.ad_banner)
 //    AdView adBanner;
@@ -52,7 +52,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ButterKnife.bind(MainActivity.this);
+//        ButterKnife.bind(MainActivity.this);
+
+        rlRootMain = findViewById(R.id.rl_root_main);
+        txtEn = findViewById(R.id.txt_en);
+        txtRo = findViewById(R.id.txt_ro);
+        llParentAd = findViewById(R.id.ll_parent_ad);
+
         AnalyticsHandler.enableCrashlytics(MainActivity.this);
         AnalyticsHandler.registerAnalytics(MainActivity.this);
         GlobalSingleton.init(MainActivity.this);
