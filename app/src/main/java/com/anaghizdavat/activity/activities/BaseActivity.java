@@ -3,8 +3,8 @@ package com.anaghizdavat.activity.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,6 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseActivity extends FragmentActivity {
 
+    private static final String TAG = "BASE_A";
     //variables
     View loadingView = null;
     View alertView = null;
@@ -45,11 +46,9 @@ public class BaseActivity extends FragmentActivity {
 
 
     public void updateStatusBarColor(int color) {// Color must be in hexadecimal fromat
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(color);
-        }
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(color);
     }
 
     public void addFragment(int containerViewId, Fragment fragment, String fragmentTag) {
@@ -167,12 +166,12 @@ public class BaseActivity extends FragmentActivity {
                 startActivity(i);
             }
         } catch (NullPointerException e) {
-            e.printStackTrace();
+            Log.e(TAG, "changeDeviceLanguage: Exception " + e);
         }
     }
 
-    public boolean isTablet(){
-        return (rlBase.getTag()!=null && rlBase.getTag().equals(getString(R.string.tablet)));
+    public boolean isTablet() {
+        return (rlBase.getTag() != null && rlBase.getTag().equals(getString(R.string.tablet)));
     }
 
 }

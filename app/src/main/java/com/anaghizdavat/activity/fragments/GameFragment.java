@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.text.InputType;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ import java.util.TimerTask;
 
 
 public class GameFragment extends BaseFragment {
+
+    private static final String TAG = "GAME_F";
 
     RelativeLayout rlNextTeam;
     TextView txtTeamNameTurn;
@@ -198,6 +201,14 @@ public class GameFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+
+        try {
+            ((MainActivity) getActivity()).showLanguageButtons(false);
+        } catch (Exception e) {
+            Log.e(TAG, "onResume: Exception " + e);
+        }
+
         if (getActivity() != null && getActivity().getCurrentFocus() != null) {
             KeyboardUtils.hideKeyboard(getActivity(), getActivity().getCurrentFocus());
         }
@@ -454,352 +465,383 @@ public class GameFragment extends BaseFragment {
     }
 
     private void showTutorial_01() {
-        Activity currentActivity = getActivity();
-        if (currentActivity == null) {
+        Activity currentActivity1 = getActivity();
+        if (currentActivity1 == null) {
             return;
         }
-        currentTutorialStep = 0;
-
-        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
-
-        int textPos = (displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:180), currentActivity));
-
-        //view targets
-        final TutorialTarget[] targets = new TutorialTarget[]{
-//                new TutorialTarget(getActivity().findViewById(R.id.test), 0,
-//                        getResources().getString(getResources().getIdentifier("tutorial_01_01",
-//                                "string", currentActivity.getPackageName())),
-//                        textPos,
-//                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.txt_team), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(viewTutorialPoints, 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_02",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(txtActivity, 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_03",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(txtWord, 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_04",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(txtTime, 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_01_05",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-//                new TutorialTarget(txtTime, 50,
-//                        getResources().getString(getResources().getIdentifier("tutorial_5",
-//                                "string", currentActivity.getPackageName())),
-//                        (int) (displayMetrics.heightPixels-displayMetrics.heightPixels / 4f),
-//                        FocusView.FocusShape.Circle)
-        };
-
-
-        //root layout
-        //final RelativeLayout rootLayout = rlRoot;
-        final RelativeLayout rootLayout = ((MainActivity) currentActivity).getRootMainLayout();
-
-        //wizard1 layout
-        final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(getActivity());
-        rootLayout.addView(wizardLayout);
-
-        //add progress buttons
-        final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
-                GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
-                displayMetrics.heightPixels
-                        - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
-        WizardUI.addProgressButtons(rootLayout, imageViews);
-
-        //add next/done button
-        final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
-        int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
-        float btnX = displayMetrics.widthPixels - btnWidth;
-        float btnY = displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
-
-        final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
-        btn.setText(R.string.next);
-
-        btn.setOnClickListener(view -> {
-            currentTutorialStep++;
-            if (currentTutorialStep + 1 <= targets.length) {
-                if (currentTutorialStep + 1 == targets.length) {
-                    btn.setText(R.string.done);
-                }
-                WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
-                WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
-            } else {
-                wizardLayout.removeAllViews();
-                rootLayout.removeView(btn);
-                updateStatusBarColor(R.color.colorRed);
-                WizardUI.removeProgressButtons(rootLayout, imageViews);
-                GlobalSingleton.getInstance().addTutorial(1);
-                rootLayout.removeView(wizardLayout);
+        rootView.post(() -> {
+            Activity currentActivity = getActivity();
+            if (currentActivity == null) {
+                return;
             }
-        });
-        rootLayout.addView(btn);
 
-        //setWizardScreen
-        WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+            currentTutorialStep = 0;
+
+            DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+
+            int textPos = (displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(
+                    (GlobalSingleton.getInstance().isTablet(currentActivity) ? 150 : 180), currentActivity));
+
+            //view targets
+            final TutorialTarget[] targets = new TutorialTarget[]{
+                    new TutorialTarget(getActivity().findViewById(R.id.txt_team), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_01_01",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(viewTutorialPoints, 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_01_02",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(txtActivity, 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_01_03",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(txtWord, 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_01_04",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(txtTime, 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_01_05",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+            };
+
+            //root layout
+            ViewGroup decorView = (ViewGroup) currentActivity.getWindow().getDecorView();
+
+            //wizard1 layout
+            final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(currentActivity);
+            decorView.addView(wizardLayout, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
+            //add progress buttons
+            final ImageView[] imageViews = WizardUI.getProgressButtons(currentActivity, targets.length,
+                    GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
+                    displayMetrics.heightPixels
+                            - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
+            WizardUI.addProgressButtons(decorView, imageViews);
+
+            //add next/done button
+            final int padding = GlobalSingleton.getInstance().convertDpToPixel(15, currentActivity);
+            final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
+            final int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
+            float btnX = displayMetrics.widthPixels - btnWidth - padding;
+            float btnY = displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
+
+            final TextView btn = WizardUI.getTextBtn(currentActivity, btnX, btnY, btnWidth, btnHeight);
+            btn.setText(R.string.next);
+
+            btn.setOnClickListener(view -> {
+                currentTutorialStep++;
+                if (currentTutorialStep + 1 <= targets.length) {
+                    if (currentTutorialStep + 1 == targets.length) {
+                        btn.setText(R.string.done);
+                    }
+                    WizardUI.setWizardScreen(currentActivity, wizardLayout, targets[currentTutorialStep]);
+                    WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
+                } else {
+                    wizardLayout.removeAllViews();
+                    decorView.removeView(btn);
+                    updateStatusBarColor(R.color.colorRed);
+                    WizardUI.removeProgressButtons(decorView, imageViews);
+                    GlobalSingleton.getInstance().addTutorial(1);
+                    decorView.removeView(wizardLayout);
+                }
+            });
+            WizardUI.addTextButton(decorView, btn);
+
+            //setWizardScreen
+            WizardUI.setWizardScreen(currentActivity, wizardLayout, targets[0]);
+        });
     }
 
     private void showTutorial_02() {
-        Activity currentActivity = getActivity();
-        if (currentActivity == null) {
+        Activity currentActivity1 = getActivity();
+        if (currentActivity1 == null) {
             return;
         }
-        currentTutorialStep = 0;
-
-        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
-
-        int textPos = (displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:180), currentActivity));
-
-        //view targets
-        final TutorialTarget[] targets = new TutorialTarget[]{
-                //  new TutorialTarget(txtTeam, 0,
-                new TutorialTarget(txtRoundPoints02, 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.rl_panel_01), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_02",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.rl_panel_02), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_03",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.rl_panel_03), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_04",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.rl_panel_04), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_05",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(getActivity().findViewById(R.id.rl_panel_05), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_02_06",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-
-        };
-
-
-        //root layout
-        //final RelativeLayout rootLayout = rlRoot;
-        final RelativeLayout rootLayout = ((MainActivity) currentActivity).getRootMainLayout();
-
-        //wizard1 layout
-        final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(getActivity());
-        rootLayout.addView(wizardLayout);
-
-        //add progress buttons
-        final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
-                GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
-                displayMetrics.heightPixels
-                        - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
-        WizardUI.addProgressButtons(rootLayout, imageViews);
-
-        //add next/done button
-        final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
-        int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
-        float btnX = displayMetrics.widthPixels - btnWidth;
-        float btnY = displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
-
-        final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
-        btn.setText(R.string.next);
-
-        btn.setOnClickListener(view -> {
-            currentTutorialStep++;
-            if (currentTutorialStep + 1 <= targets.length) {
-                if (currentTutorialStep + 1 == targets.length) {
-                    btn.setText(R.string.done);
-                }
-                WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
-                WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
-                paused = false;
-            } else {
-                wizardLayout.removeAllViews();
-                rootLayout.removeView(btn);
-                updateStatusBarColor(R.color.colorRed);
-                WizardUI.removeProgressButtons(rootLayout, imageViews);
-                GlobalSingleton.getInstance().addTutorial(2);
-                rootLayout.removeView(wizardLayout);
+        rootView.post(() -> {
+            Activity currentActivity = getActivity();
+            if (currentActivity == null) {
+                return;
             }
-        });
-        rootLayout.addView(btn);
 
-        //setWizardScreen
-        WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+            currentTutorialStep = 0;
+
+            DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+
+            int textPos = (displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(
+                    (GlobalSingleton.getInstance().isTablet(currentActivity) ? 150 : 180), currentActivity));
+
+            //view targets
+            final TutorialTarget[] targets = new TutorialTarget[]{
+                    new TutorialTarget(txtRoundPoints02, 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_01",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(getActivity().findViewById(R.id.rl_panel_01), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_02",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(getActivity().findViewById(R.id.rl_panel_02), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_03",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(getActivity().findViewById(R.id.rl_panel_03), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_04",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(getActivity().findViewById(R.id.rl_panel_04), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_05",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(getActivity().findViewById(R.id.rl_panel_05), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_02_06",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+
+            };
+
+
+            //root layout
+            ViewGroup decorView = (ViewGroup) currentActivity.getWindow().getDecorView();
+
+            //wizard1 layout
+            final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(currentActivity);
+            decorView.addView(wizardLayout, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
+
+            //add progress buttons
+            final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
+                    GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
+                    displayMetrics.heightPixels
+                            - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
+            WizardUI.addProgressButtons(decorView, imageViews);
+
+            //add next/done button
+            final int padding = GlobalSingleton.getInstance().convertDpToPixel(15, currentActivity);
+            final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
+            final int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
+            float btnX = displayMetrics.widthPixels - btnWidth - padding;
+            float btnY = displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
+
+            final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
+            btn.setText(R.string.next);
+
+            btn.setOnClickListener(view -> {
+                currentTutorialStep++;
+                if (currentTutorialStep + 1 <= targets.length) {
+                    if (currentTutorialStep + 1 == targets.length) {
+                        btn.setText(R.string.done);
+                    }
+                    WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
+                    WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
+                    paused = false;
+                } else {
+                    wizardLayout.removeAllViews();
+                    decorView.removeView(btn);
+                    updateStatusBarColor(R.color.colorRed);
+                    WizardUI.removeProgressButtons(decorView, imageViews);
+                    GlobalSingleton.getInstance().addTutorial(2);
+                    decorView.removeView(wizardLayout);
+                }
+            });
+            WizardUI.addTextButton(decorView, btn);
+
+            //setWizardScreen
+            WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+        });
     }
 
     private void showTutorial_03() {
-        Activity currentActivity = getActivity();
-        if (currentActivity == null) {
+        Activity currentActivity1 = getActivity();
+        if (currentActivity1 == null) {
             return;
         }
-        currentTutorialStep = 0;
-
-        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
-
-        int textPos = (displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:200), currentActivity));
-        //view targets
-        final TutorialTarget[] targets = new TutorialTarget[]{
-                //  new TutorialTarget(txtTeam, 0,
-                new TutorialTarget(getActivity().findViewById(R.id.txt_word_all), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_03_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-        };
-
-
-        //root layout
-        //final RelativeLayout rootLayout = rlRoot;
-        final RelativeLayout rootLayout = ((MainActivity) currentActivity).getRootMainLayout();
-
-        //wizard1 layout
-        final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(getActivity());
-        rootLayout.addView(wizardLayout);
-
-        //add progress buttons
-        final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
-                GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
-                displayMetrics.heightPixels
-                        - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
-        WizardUI.addProgressButtons(rootLayout, imageViews);
-
-        //add next/done button
-        final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
-        int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
-        float btnX = displayMetrics.widthPixels - btnWidth;
-        float btnY = displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
-
-        final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
-        btn.setText(R.string.done);
-
-        btn.setOnClickListener(view -> {
-            currentTutorialStep++;
-            if (currentTutorialStep + 1 <= targets.length) {
-                if (currentTutorialStep + 1 == targets.length) {
-                    btn.setText(R.string.done);
-                }
-                WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
-                WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
-            } else {
-                wizardLayout.removeAllViews();
-                rootLayout.removeView(btn);
-                updateStatusBarColor(R.color.colorRed);
-                WizardUI.removeProgressButtons(rootLayout, imageViews);
-                GlobalSingleton.getInstance().addTutorial(3);
-                rootLayout.removeView(wizardLayout);
+        rootView.post(() -> {
+            Activity currentActivity = getActivity();
+            if (currentActivity == null) {
+                return;
             }
-        });
-        rootLayout.addView(btn);
 
-        //setWizardScreen
-        WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+            currentTutorialStep = 0;
+
+            DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+
+            int textPos = (displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(
+                    (GlobalSingleton.getInstance().isTablet(currentActivity) ? 150 : 200), currentActivity));
+
+            //view targets
+            final TutorialTarget[] targets = new TutorialTarget[]{
+                    //  new TutorialTarget(txtTeam, 0,
+                    new TutorialTarget(getActivity().findViewById(R.id.txt_word_all), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_03_01",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+            };
+
+
+            //root layout
+            ViewGroup decorView = (ViewGroup) currentActivity.getWindow().getDecorView();
+
+            //wizard1 layout
+            final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(currentActivity);
+            decorView.addView(wizardLayout, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
+            //add progress buttons
+            final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
+                    GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
+                    displayMetrics.heightPixels
+                            - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
+            WizardUI.addProgressButtons(decorView, imageViews);
+
+            //add next/done button
+            final int padding = GlobalSingleton.getInstance().convertDpToPixel(15, currentActivity);
+            final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
+            final int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
+            float btnX = displayMetrics.widthPixels - btnWidth - padding;
+            float btnY = displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
+
+            final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
+            btn.setText(R.string.done);
+
+            btn.setOnClickListener(view -> {
+                currentTutorialStep++;
+                if (currentTutorialStep + 1 <= targets.length) {
+                    if (currentTutorialStep + 1 == targets.length) {
+                        btn.setText(R.string.done);
+                    }
+                    WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
+                    WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
+                } else {
+                    wizardLayout.removeAllViews();
+                    decorView.removeView(btn);
+                    updateStatusBarColor(R.color.colorRed);
+                    WizardUI.removeProgressButtons(decorView, imageViews);
+                    GlobalSingleton.getInstance().addTutorial(3);
+                    decorView.removeView(wizardLayout);
+                }
+            });
+            decorView.addView(btn);
+
+            //setWizardScreen
+            WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+        });
     }
 
     private void showTutorial_04(int currentId, int changeId) {
-        Activity currentActivity = getActivity();
-        if (currentActivity == null) {
+        Activity currentActivity1 = getActivity();
+        if (currentActivity1 == null) {
             return;
         }
-        inTutorial = true;
-        currentTutorialStep = 0;
-
-        DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
-
-        int textPos = (displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(
-                (GlobalSingleton.getInstance().isTablet(currentActivity)?150:200), currentActivity));
-        //view targets
-        final TutorialTarget[] targets = new TutorialTarget[]{
-                new TutorialTarget(listTeams.get(currentId).getCurrentParent(), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_04_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-                new TutorialTarget(listTeams.get(changeId).getFutureView(-1), 0,
-                        getResources().getString(getResources().getIdentifier("tutorial_04_01",
-                                "string", currentActivity.getPackageName())),
-                        textPos,
-                        FocusView.FocusShape.Rectangle),
-        };
-
-
-        //root layout
-        //final RelativeLayout rootLayout = rlRoot;
-        final RelativeLayout rootLayout = ((MainActivity) currentActivity).getRootMainLayout();
-
-        //wizard1 layout
-        final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(getActivity());
-        rootLayout.addView(wizardLayout);
-
-        //add progress buttons
-        final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
-                GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
-                displayMetrics.heightPixels
-                        - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
-        WizardUI.addProgressButtons(rootLayout, imageViews);
-
-        //add next/done button
-        final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
-        int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
-        float btnX = displayMetrics.widthPixels - btnWidth;
-        float btnY = displayMetrics.heightPixels
-                - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
-
-        final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
-        btn.setText(R.string.next);
-
-        btn.setOnClickListener(view -> {
-            currentTutorialStep++;
-            if (currentTutorialStep + 1 <= targets.length) {
-                if (currentTutorialStep + 1 == targets.length) {
-                    btn.setText(R.string.done);
-                }
-                WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
-                WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
-                paused = false;
-            } else {
-                wizardLayout.removeAllViews();
-                rootLayout.removeView(btn);
-                updateStatusBarColor(R.color.colorRed);
-                WizardUI.removeProgressButtons(rootLayout, imageViews);
-                GlobalSingleton.getInstance().addTutorial(4);
-                rootLayout.removeView(wizardLayout);
-                inTutorial = false;
+        rootView.post(() -> {
+            Activity currentActivity = getActivity();
+            if (currentActivity == null) {
+                return;
             }
-        });
-        rootLayout.addView(btn);
 
-        //setWizardScreen
-        WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+            inTutorial = true;
+            currentTutorialStep = 0;
+
+            DisplayMetrics displayMetrics = GlobalSingleton.getInstance().getScreenMetrics(currentActivity);
+
+            int textPos = (displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(
+                    (GlobalSingleton.getInstance().isTablet(currentActivity) ? 150 : 180), currentActivity));
+
+            //view targets
+            final TutorialTarget[] targets = new TutorialTarget[]{
+                    new TutorialTarget(listTeams.get(currentId).getCurrentParent(), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_04_01",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+                    new TutorialTarget(listTeams.get(changeId).getFutureView(-1), 0,
+                            getResources().getString(getResources().getIdentifier("tutorial_04_01",
+                                    "string", currentActivity.getPackageName())),
+                            textPos,
+                            FocusView.FocusShape.Rectangle),
+            };
+
+
+            //root layout
+            ViewGroup decorView = (ViewGroup) currentActivity.getWindow().getDecorView();
+
+            //wizard1 layout
+            final RelativeLayout wizardLayout = WizardUI.getBackgroundLayout(currentActivity);
+            decorView.addView(wizardLayout, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+
+            //add progress buttons
+            final ImageView[] imageViews = WizardUI.getProgressButtons(getActivity(), targets.length,
+                    GlobalSingleton.getInstance().convertDpToPixel(10, currentActivity),
+                    displayMetrics.heightPixels
+                            - GlobalSingleton.getInstance().convertDpToPixel(65, currentActivity));
+            WizardUI.addProgressButtons(decorView, imageViews);
+
+            //add next/done button
+            final int padding = GlobalSingleton.getInstance().convertDpToPixel(15, currentActivity);
+            final int btnWidth = GlobalSingleton.getInstance().convertDpToPixel(100, currentActivity);
+            final int btnHeight = GlobalSingleton.getInstance().convertDpToPixel(40, currentActivity);
+            float btnX = displayMetrics.widthPixels - btnWidth - padding;
+            float btnY = displayMetrics.heightPixels
+                    - GlobalSingleton.getInstance().convertDpToPixel(80, currentActivity);
+
+            final TextView btn = WizardUI.getTextBtn(getActivity(), btnX, btnY, btnWidth, btnHeight);
+            btn.setText(R.string.next);
+
+            btn.setOnClickListener(view -> {
+                currentTutorialStep++;
+                if (currentTutorialStep + 1 <= targets.length) {
+                    if (currentTutorialStep + 1 == targets.length) {
+                        btn.setText(R.string.done);
+                    }
+                    WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[currentTutorialStep]);
+                    WizardUI.updateProgressButtons(imageViews, currentTutorialStep);
+                    paused = false;
+                } else {
+                    wizardLayout.removeAllViews();
+                    decorView.removeView(btn);
+                    updateStatusBarColor(R.color.colorRed);
+                    WizardUI.removeProgressButtons(decorView, imageViews);
+                    GlobalSingleton.getInstance().addTutorial(4);
+                    decorView.removeView(wizardLayout);
+                    inTutorial = false;
+                }
+            });
+            decorView.addView(btn);
+
+            //setWizardScreen
+            WizardUI.setWizardScreen(getActivity(), wizardLayout, targets[0]);
+        });
     }
 
     private void onClickCorrect(int receivedTeam, int receivedPoints) {

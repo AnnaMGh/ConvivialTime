@@ -2,14 +2,13 @@ package com.anaghizdavat.activity.others;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,7 +41,7 @@ public class WizardUI {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
         );
-        params.addRule(RelativeLayout.CENTER_HORIZONTAL,1);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL, 1);
         params.setMargins(GlobalSingleton.getInstance().convertDpToPixel(10, context),
                 GlobalSingleton.getInstance().convertDpToPixel(10, context),
                 GlobalSingleton.getInstance().convertDpToPixel(10, context),
@@ -56,7 +55,7 @@ public class WizardUI {
         txtV.setX(x);
         txtV.setY(y);
         txtV.setText(title);
-        txtV.setTextSize(TypedValue.COMPLEX_UNIT_SP, GlobalSingleton.getInstance().isTablet(context)?20:16);
+        txtV.setTextSize(TypedValue.COMPLEX_UNIT_SP, GlobalSingleton.getInstance().isTablet(context) ? 20 : 16);
         txtV.setTextColor(context.getResources().getColor(R.color.colorWhite));
         txtV.setBackground(context.getResources().getDrawable(R.drawable.round_corners_gray));
 
@@ -124,7 +123,7 @@ public class WizardUI {
     //button done/next
     public static Button getButton(Context context, float x, float y, int width, int height) {
         Button btn = new Button(context);
-        btn.setX(x - GlobalSingleton.getInstance().convertDpToPixel(15, context));
+        btn.setX(x);
         btn.setY(y);
         btn.setWidth(width);
         btn.setHeight(height);
@@ -134,16 +133,15 @@ public class WizardUI {
     }
 
     public static TextView getTextBtn(Context context, float x, float y, int width, int height) {
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(width, height);
 
-        int widthExtension= GlobalSingleton.getInstance().convertDpToPixel((GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, context).equalsIgnoreCase("en")?0:5), context);
         TextView txt = new TextView(context);
-        txt.setX(x - GlobalSingleton.getInstance().convertDpToPixel(15, context));
+        txt.setLayoutParams(params);
+        txt.setX(x);
         txt.setY(y);
         txt.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         txt.setGravity(Gravity.CENTER);
-        txt.setTextSize(GlobalSingleton.getInstance().isTablet(context)?20:16);
-        txt.setWidth(width + widthExtension);
-        txt.setHeight(height);
+        txt.setTextSize(GlobalSingleton.getInstance().isTablet(context) ? 20 : 16);
         txt.setTextColor(context.getResources().getColor(R.color.colorWhite));
         txt.setBackground(context.getResources().getDrawable(R.drawable.round_corners_gray));
 
@@ -162,12 +160,12 @@ public class WizardUI {
 
 
             if (i == 0) {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(40, 40);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(40, 40);
                 imageViews[i].setLayoutParams(params);
                 imageViews[i].setImageResource(R.drawable.circle_fill_gray);
                 imageViews[i].setY(y - 5);
             } else {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(30, 30);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(30, 30);
                 imageViews[i].setLayoutParams(params);
                 imageViews[i].setImageResource(R.drawable.circle_fill_gray_darker);
                 imageViews[i].setY(y);
@@ -184,43 +182,34 @@ public class WizardUI {
         return imageViews;
     }
 
-    //add progress images to relative layout
-    public static void addProgressButtons(RelativeLayout layout, ImageView[] images) {
-        for (int i = 0; i < images.length; i++) {
-            layout.addView(images[i]);
-        }
+
+    public static void addTextButton(ViewGroup layout, TextView btn) {
+        layout.addView(btn);
     }
 
-    //add progress images to linear layout
-    public static void addProgressButtons(LinearLayout layout, ImageView[] images) {
-        for (int i = 0; i < images.length; i++) {
-            layout.addView(images[i]);
+    //add progress images to relative layout
+    public static void addProgressButtons(ViewGroup layout, ImageView[] images) {
+        for (ImageView image : images) {
+            layout.addView(image);
         }
     }
 
     //remove progress images from relative layout
-    public static void removeProgressButtons(RelativeLayout layout, ImageView[] images) {
-        for (int i = 0; i < images.length; i++) {
-            layout.removeView(images[i]);
-        }
-    }
-
-    //remove progress images from linear layout
-    public static void removeProgressButtons(LinearLayout layout, ImageView[] images) {
-        for (int i = 0; i < images.length; i++) {
-            layout.removeView(images[i]);
+    public static void removeProgressButtons(ViewGroup layout, ImageView[] images) {
+        for (ImageView image : images) {
+            layout.removeView(image);
         }
     }
 
     public static void updateProgressButtons(ImageView[] images, int currentStep) {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) images[currentStep - 1].getLayoutParams();
+        ViewGroup.LayoutParams params = images[currentStep - 1].getLayoutParams();
         params.width = 30;
         params.height = 30;
         images[currentStep - 1].setLayoutParams(params);
         images[currentStep - 1].setY(images[currentStep - 1].getY() + 5);
         images[currentStep - 1].setImageResource(R.drawable.circle_fill_gray_darker);
 
-        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) images[currentStep].getLayoutParams();
+        ViewGroup.LayoutParams params2 = images[currentStep].getLayoutParams();
         params2.width = 40;
         params2.height = 40;
         images[currentStep].setLayoutParams(params2);
@@ -229,7 +218,7 @@ public class WizardUI {
     }
 
     //set wizard screen
-    public static void setWizardScreen(final Activity context, final RelativeLayout wizardLayout, final TutorialTarget targetView) {
+    public static void setWizardScreen(final Activity context, final ViewGroup wizardLayout, final TutorialTarget targetView) {
 
         wizardLayout.removeAllViews();
 
@@ -246,11 +235,10 @@ public class WizardUI {
                     wizardLayout.addView(backgroundView);
 
                     //add focus view
-                    int radius  = (targetView.getFocusShape() == FocusView.FocusShape.Circle?
-                            targetView.getRadius(context):
-                            targetView.getView().getHeight()+GlobalSingleton.getInstance().convertDpToPixel(targetView.getRadius(context), context));
-                    FocusView view = WizardUI.getFocusView(context,
-                            targetView.getViewPosition(context),
+                    int radius = (targetView.getFocusShape() == FocusView.FocusShape.Circle ?
+                            targetView.getRadius(context) :
+                            targetView.getView().getHeight() + GlobalSingleton.getInstance().convertDpToPixel(targetView.getRadius(context), context));
+                    FocusView view = WizardUI.getFocusView(context, targetView.getViewPosition(),
                             radius, targetView.getFocusShape());
                     view.setOnClickListener(view1 -> { /*block?*/});
                     backgroundView.addView(view, 0);
@@ -264,10 +252,10 @@ public class WizardUI {
         }
     }
 
-    public static void initializeViewsLayout(Context context, RelativeLayout wizardLayout) {
+    public static void initializeViewsLayout(Context context, ViewGroup wizardLayout) {
 
         //background view
-        RelativeLayout backgroundView = WizardUI.getBackgroundLayout(context);
+        ViewGroup backgroundView = WizardUI.getBackgroundLayout(context);
 
         //add focus view
         FocusView view = WizardUI.getFocusView(context, 0, 0, 150, FocusView.FocusShape.Circle);
@@ -280,7 +268,7 @@ public class WizardUI {
     }
 
     //keep temporary views
-    public static View[] keepTemporalViews(RelativeLayout layout) {
+    public static View[] keepTemporalViews(ViewGroup layout) {
         View[] views = new View[layout.getChildCount()];
         for (int i = 0; i < layout.getChildCount(); i++) {
             views[i] = layout.getChildAt(i);
@@ -289,7 +277,7 @@ public class WizardUI {
     }
 
     // remove temporary views
-    public static void removeTemporalViews(RelativeLayout layout, View[] views) {
+    public static void removeTemporalViews(ViewGroup layout, View[] views) {
         for (View view : views) {
             layout.removeView(view);
         }

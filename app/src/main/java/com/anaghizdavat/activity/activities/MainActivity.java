@@ -1,17 +1,20 @@
 package com.anaghizdavat.activity.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.anaghizdavat.activity.AdHandler;
 import com.anaghizdavat.activity.AnalyticsHandler;
-import com.anaghizdavat.activity.BuildConfig;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.fragments.GameFragment;
 import com.anaghizdavat.activity.fragments.GameSetupFragment;
@@ -19,25 +22,21 @@ import com.anaghizdavat.activity.model.Team;
 import com.anaghizdavat.activity.others.Constants;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 import com.anaghizdavat.activity.others.KeyboardUtils;
-
+import com.anaghizdavat.activity.others.StatusBarUtil;
 
 import java.util.ArrayList;
 
-//import butterknife.BindView;
-//import butterknife.ButterKnife;
-
 public class MainActivity extends BaseActivity {
+    private static final String TAG = "MAIN_A";
 
-//    @BindView(R.id.rl_root_main)
     RelativeLayout rlRootMain;
-//    @BindView(R.id.txt_en)
+    LinearLayout llLanguage;
+
     TextView txtEn;
-//    @BindView(R.id.txt_ro)
+
     TextView txtRo;
-//    @BindView(R.id.ll_parent_ad)
+
     LinearLayout llParentAd;
-//    @BindView(R.id.ad_banner)
-//    AdView adBanner;
 
     //set from other class
     public boolean showAlert = true;
@@ -52,12 +51,20 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ButterKnife.bind(MainActivity.this);
+        // Make status bar icons visible
+        Window window = getWindow();
+        StatusBarUtil.makeStatusBarOpaque(window);
+        StatusBarUtil.changeStatusBarColor(this, window);
+
+        androidx.core.view.WindowInsetsControllerCompat controller =
+                androidx.core.view.WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        controller.setAppearanceLightStatusBars(false); // set true if your bar is light
 
         rlRootMain = findViewById(R.id.rl_root_main);
         txtEn = findViewById(R.id.txt_en);
         txtRo = findViewById(R.id.txt_ro);
         llParentAd = findViewById(R.id.ll_parent_ad);
+        llLanguage = findViewById(R.id.ll_language);
 
         AnalyticsHandler.enableCrashlytics(MainActivity.this);
         AnalyticsHandler.registerAnalytics(MainActivity.this);
@@ -65,6 +72,13 @@ public class MainActivity extends BaseActivity {
 
         initialize();
         setListeners();
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackPressed();
+            }
+        });
     }
 
     @Override
@@ -73,19 +87,22 @@ public class MainActivity extends BaseActivity {
         AnalyticsHandler.unregisterAnalytics();
     }
 
-    @Override
-    public void onBackPressed() {
+    public void showLanguageButtons(boolean isShow) {
+        llLanguage.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    private void handleBackPressed() {
+        Log.d(TAG, "handleBackPressed");
+
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             FragmentManager manager = getSupportFragmentManager();
             Fragment fragment = manager.findFragmentById(R.id.container);
             if (fragment instanceof GameFragment) {
                 if (!showAlert) {
                     showAlert = true;
-//                    super.onBackPressed();
                     addFragmentAsNew(R.id.container, "GameFragment", new GameSetupFragment(), "GameSetupFragment");
                     return;
                 }
-
                 showAlert(getString(R.string.do_you_want_to_cancel_the_game),
                         obj -> {
                             addFragmentAsNew(R.id.container, "GameFragment", new GameSetupFragment(), "GameSetupFragment");
@@ -94,23 +111,18 @@ public class MainActivity extends BaseActivity {
                         }
                 );
             } else {
-                long DELTA = 700;
-                if (System.currentTimeMillis() - lastBackPress < DELTA) {
-                    this.finish();
-                } else {
-                    showToast(getString(R.string.t_press_back));
-                    lastBackPress = System.currentTimeMillis();
-                }
+                Log.d(TAG, "handleBackPressed: Finish");
+                finish();
             }
         } else if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             //below code was needed when i was adding, now i am replacing
             FragmentManager manager = getSupportFragmentManager();
             Fragment fragment = manager.findFragmentById(R.id.container);
             if (fragment instanceof GameFragment) {
-                Log.e("backpressed", "GameFragment>1");
+                Log.e(TAG, "handleBackPressed: GameFragment>1");
                 if (!showAlert) {
                     showAlert = true;
-                    super.onBackPressed();
+                    finish();
                     return;
                 }
                 showAlert(getString(R.string.do_you_want_to_cancel_the_game),
@@ -119,17 +131,25 @@ public class MainActivity extends BaseActivity {
                         }
                 );
             } else {
-                super.onBackPressed();
+                Log.d(TAG, "handleBackPressed: Just finish.");
+                finish();
             }
+        } else {
+            Log.d(TAG, "handleBackPressed: Finish from start.");
+            finish();
         }
     }
 
     private void initialize() {
         //ads on gms
-        if (BuildConfig.FLAVOR.equals("gms")) {
+//        if (BuildConfig.FLAVOR.equals("gms")) {
 //            AdHandler.initialize(MainActivity.this, adBanner, llParentAd);
-            AdHandler.initialize(MainActivity.this, null, null);
-        }
+//            AdHandler.initialize(MainActivity.this, null, null);
+//        }
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, MainActivity.this));
+        AnalyticsHandler.sendMessage(MainActivity.this, Constants.EVENT_LAUNCH, bundle);
 
         changeLanguageUI(GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, this));
         addFragment(R.id.container, new GameSetupFragment(), "GameSetupFragment");
@@ -162,8 +182,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public RelativeLayout getRootMainLayout()
-    {
-        return  rlRootMain;
+    public RelativeLayout getRootMainLayout() {
+        return rlRootMain;
     }
 }

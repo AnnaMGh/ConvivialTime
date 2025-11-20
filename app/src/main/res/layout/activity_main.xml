@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rl_root_main"
+    android:background="@color/colorPinkUnsaturated"
+    android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
     <LinearLayout
@@ -38,6 +39,7 @@
             android:alpha="0.5"
             android:background="@color/colorBlack" />
 
+
         <TextView
             android:id="@+id/txt_ro"
             fontPath="fonts/Geometry_Soft_Pro-Bold_N.otf"
@@ -67,12 +69,12 @@
         android:orientation="vertical"
         android:visibility="visible">
 
-<!--        <com.google.android.gms.ads.AdView-->
-<!--            android:id="@+id/ad_banner"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            ads:adSize="BANNER"-->
-<!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
+        <!--        <com.google.android.gms.ads.AdView-->
+        <!--            android:id="@+id/ad_banner"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            ads:adSize="BANNER"-->
+        <!--            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />-->
 
     </LinearLayout>
 

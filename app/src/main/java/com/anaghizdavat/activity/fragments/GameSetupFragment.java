@@ -23,7 +23,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.anaghizdavat.activity.AdHandler;
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.activities.MainActivity;
@@ -40,6 +39,7 @@ import java.util.TimerTask;
 
 public class GameSetupFragment extends BaseFragment {
 
+    private static final String TAG = "GAME_SETUP_F";
     ScrollView scroll;
     RelativeLayout rlStart;
     RelativeLayout rlParentTime;
@@ -94,11 +94,11 @@ public class GameSetupFragment extends BaseFragment {
         btnStart = rootView.findViewById(R.id.btn_start);
 
 
-        rootView.findViewById(R.id.img_arrow_left).setOnClickListener(v->{
+        rootView.findViewById(R.id.img_arrow_left).setOnClickListener(v -> {
             onClickLeft();
         });
 
-        rootView.findViewById(R.id.img_arrow_right).setOnClickListener(v->{
+        rootView.findViewById(R.id.img_arrow_right).setOnClickListener(v -> {
             onClickRight();
         });
 
@@ -111,6 +111,13 @@ public class GameSetupFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        try {
+            ((MainActivity) getActivity()).showLanguageButtons(true);
+        } catch (Exception e) {
+            Log.e(TAG, "onResume: Exception " + e);
+        }
+
         Timer checkKeyboardTimer = new Timer();
         checkKeyboardTimer.schedule(new TimerTask() {
             @Override
@@ -265,8 +272,8 @@ public class GameSetupFragment extends BaseFragment {
         }, 5000, 5000);
 
         //load ad
-        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
-       // AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialTestUnitId);
+//        AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialUnitId);
+        // AdHandler.addInterstitialAd(currentActivity, Constants.adInterstitialTestUnitId);
     }
 
     private void setListeners() {
@@ -322,22 +329,22 @@ public class GameSetupFragment extends BaseFragment {
             AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_START, bundle);
 
 
-            AdHandler.showInterstitialAd(getActivity(), obj -> {
-                //go to game fragment
-                GameFragment fragment = new GameFragment();
-                fragment.listTeams = GlobalSingleton.getInstance().copyArray(listTeams);
-                fragment.listTalk = listTalk;
-                fragment.listMime = listMime;
-                fragment.listDraw = listDraw;
-                fragment.timeLimit = timeLimit;
-                fragment.timeCode = timeCode;
-                fragment.gameType = (gameType == 2 ? Constants.GAME_TYPE_MULTIPLE_3 : gameType);
-                fragment.gameName = (gameType == 2 ? getActivity().getResources().getString(R.string.best_of_iii) : gameName);
-                currentActivity.previousMode = gameType;
-                currentActivity.previousTime = timeCode;
-                currentActivity.previousTeams = listTeams;
-                addFragmentAsNew(R.id.container, "GameSetupFragment", fragment, "GameFragment");
-            });
+//            AdHandler.showInterstitialAd(getActivity(), obj -> {
+            //go to game fragment
+            GameFragment fragment = new GameFragment();
+            fragment.listTeams = GlobalSingleton.getInstance().copyArray(listTeams);
+            fragment.listTalk = listTalk;
+            fragment.listMime = listMime;
+            fragment.listDraw = listDraw;
+            fragment.timeLimit = timeLimit;
+            fragment.timeCode = timeCode;
+            fragment.gameType = (gameType == 2 ? Constants.GAME_TYPE_MULTIPLE_3 : gameType);
+            fragment.gameName = (gameType == 2 ? getActivity().getResources().getString(R.string.best_of_iii) : gameName);
+            currentActivity.previousMode = gameType;
+            currentActivity.previousTime = timeCode;
+            currentActivity.previousTeams = listTeams;
+            addFragmentAsNew(R.id.container, "GameSetupFragment", fragment, "GameFragment");
+//            });
 
         });
     }

@@ -23,6 +23,7 @@
     <color name="colorRedSaturated">#EC5757</color>
     <color name="colorGreenSaturated">#55C4A0</color>
 
+    <color name="colorPinkUnsaturated">#F6F1F1</color>
     <color name="colorRedUnsaturated">#D6D1DB</color>
     <color name="colorOrangeUnsaturated">#D1CFCA</color>
     <color name="colorBlueUnsaturated">#C8CCCF</color>

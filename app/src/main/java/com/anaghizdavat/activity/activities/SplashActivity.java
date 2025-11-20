@@ -1,27 +1,31 @@
 package com.anaghizdavat.activity.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
 import com.anaghizdavat.activity.AnalyticsHandler;
 import com.anaghizdavat.activity.R;
 import com.anaghizdavat.activity.others.Constants;
 import com.anaghizdavat.activity.others.GlobalSingleton;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class SplashActivity extends BaseActivity {
-
-    private long lastBackPress;
-
-    Timer timer;
+    private static final String TAG = "SPLASH_A";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
 
+        // From SDK 31 (12) it has its own Splash Screen
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            goToMain();
+            return;
+        }
+
+        setContentView(R.layout.activity_splash);
         AnalyticsHandler.enableCrashlytics(SplashActivity.this);
         AnalyticsHandler.registerAnalytics(SplashActivity.this);
 
@@ -34,44 +38,23 @@ public class SplashActivity extends BaseActivity {
         AnalyticsHandler.unregisterAnalytics();
     }
 
-    @Override
-    public void onBackPressed() {
-        long DELTA = 700;
-        if (System.currentTimeMillis() - lastBackPress < DELTA) {
-            try {
-                timer.cancel();
-                timer.purge();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            this.finish();
-        } else {
-            lastBackPress = System.currentTimeMillis();
+    private void initialize() {
+        try {
+            new Handler(Looper.getMainLooper()).postDelayed(this::goToMain, 1500);
+        } catch (Exception e) {
+            Log.e(TAG, "initialize: Exception " + e);
         }
     }
 
-    private void initialize() {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
+    private void goToMain() {
+        // Send event
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, SplashActivity.this));
+        AnalyticsHandler.sendMessage(SplashActivity.this, Constants.EVENT_LAUNCH, bundle);
 
-                timer.cancel();
-                timer.purge();
-
-                runOnUiThread(() -> {
-                    //send event
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.EVENT_PARAM_LANG, GlobalSingleton.getInstance().getString(Constants.KEY_LOCALE, SplashActivity.this));
-                    AnalyticsHandler.sendMessage(SplashActivity.this, Constants.EVENT_LAUNCH, bundle);
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                });
-
-            }
-        }, 3000, 3000);
-
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        this.finish();
     }
 }

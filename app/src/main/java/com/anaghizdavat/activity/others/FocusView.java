@@ -15,9 +15,7 @@ import com.anaghizdavat.activity.model.Coordinates;
 
 public class FocusView extends View {
 
-    public enum FocusShape {
-        Circle, Rectangle
-    }
+    public enum FocusShape {Circle, Rectangle}
 
     private Paint mTransparentPaint;
     private Paint mSemiBlackPaint;

@@ -1,51 +1,33 @@
 package com.anaghizdavat.activity;
 
-import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-
-import com.anaghizdavat.activity.model.ObjectListener;
-import com.anaghizdavat.activity.others.Constants;
-import com.anaghizdavat.activity.others.GlobalSingleton;
-import com.google.ads.mediation.admob.AdMobAdapter;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-
 public class AdHandler {
-    private static InterstitialAd mInterstitialAd;
-    private static AdView mBannerAd;
-    private static LinearLayout mLlBannerParent;
-    private static Context mContext;
-    private static ObjectListener listener;
-
-    public static void initialize(Context context, AdView bannerAd, LinearLayout llBannerParent) {
-        mContext = context;
-        Log.d("adHandler", "initialize");
-        MobileAds.initialize(context, initializationStatus -> {
-            Log.d("adHandler", "initialize - onInitializationComplete");
-
-            if (bannerAd != null && llBannerParent != null) {
-                addBannerAd(context, bannerAd, llBannerParent);
-            }
-        });
-    }
-
-    public static void addInterstitialAd(Context context, String unitId) {
-        if (context != null) {
-            mContext = context;
-        }
-
-        Log.d("adHandler", "addInterstitialAd");
-//        mInterstitialAd = new InterstitialAd(mContext);
-//        mInterstitialAd.setAdUnitId(unitId);
+//    private static InterstitialAd mInterstitialAd;
+//    private static AdView mBannerAd;
+//    private static LinearLayout mLlBannerParent;
+//    private static Context mContext;
+//    private static ObjectListener listener;
 //
+//    public static void initialize(Context context, AdView bannerAd, LinearLayout llBannerParent) {
+//        mContext = context;
+//        Log.d("adHandler", "initialize");
+//        MobileAds.initialize(context, initializationStatus -> {
+//            Log.d("adHandler", "initialize - onInitializationComplete");
+//
+//            if (bannerAd != null && llBannerParent != null) {
+//                addBannerAd(context, bannerAd, llBannerParent);
+//            }
+//        });
+//    }
+//
+//    public static void addInterstitialAd(Context context, String unitId) {
+//        if (context != null) {
+//            mContext = context;
+//        }
+//
+//        Log.d("adHandler", "addInterstitialAd");
+////        mInterstitialAd = new InterstitialAd(mContext);
+////        mInterstitialAd.setAdUnitId(unitId);
+////
 //        //ad for children
 //        Bundle extras = new Bundle();
 //        extras.putString("max_ad_content_rating", "G");
@@ -131,14 +113,14 @@ public class AdHandler {
 //                }
 //            }
 //        });
-    }
-
-    public static void addBannerAd(Context context, AdView adBanner, LinearLayout llBannerParent) {
-        if (context != null) {
-            mContext = context;
-        }
-
-        Log.d("adHandler", "addBannerAd");
+//    }
+//
+//    public static void addBannerAd(Context context, AdView adBanner, LinearLayout llBannerParent) {
+//        if (context != null) {
+//            mContext = context;
+//        }
+//
+//        Log.d("adHandler", "addBannerAd");
 //        mBannerAd = adBanner;
 //        mLlBannerParent = llBannerParent;
 //
@@ -217,33 +199,33 @@ public class AdHandler {
 //                AnalyticsHandler.sendMessage(mContext, Constants.EVENT_AD_CLOSED, bundle);
 //            }
 //        });
-    }
-
-    public static void showInterstitialAd(Context context) {
-        if (context != null) {
-            mContext = context;
-        }
-
-
+//    }
+//
+//    public static void showInterstitialAd(Context context) {
+//        if (context != null) {
+//            mContext = context;
+//        }
+//
+//
 //        Log.d("adHandler", "showInterstitalAd");
 //        if (GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
 //            Log.d("adHandler", "ad loaded and showed");
 //            mInterstitialAd.show();
 //        }
-    }
-
-    public static void showInterstitialAd(Context context, ObjectListener objectListener) {
-        listener = objectListener;
-
-        listener = objectListener;
-        if (listener != null) {
-            listener.getObject("Closed");
-        }
-
-        if (context != null) {
-            mContext = context;
-        }
-
+//    }
+//
+//    public static void showInterstitialAd(Context context, ObjectListener objectListener) {
+//        listener = objectListener;
+//
+//        listener = objectListener;
+//        if (listener != null) {
+//            listener.getObject("Closed");
+//        }
+//
+//        if (context != null) {
+//            mContext = context;
+//        }
+//
 //        Log.d("adHandler", "showInterstitalAd");
 //        if (mInterstitialAd != null && GlobalSingleton.getInstance().hasInternet(mContext) && mInterstitialAd.isLoaded()) {
 //            Log.d("adHandler", "ad loaded and showed");
@@ -253,5 +235,5 @@ public class AdHandler {
 //                listener.getObject("No internet");
 //            }
 //        }
-    }
+//    }
 }
