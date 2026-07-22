@@ -40,8 +40,8 @@ android {
     flavorDimensions = ["services"]
     productFlavors {
         gms {
-            versionCode 14
-            versionName "1.1.0"
+            versionCode 15
+            versionName "1.1.1"
             dimension "services"
         }
         hms {
